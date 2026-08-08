@@ -1,0 +1,6 @@
+# Local test scripts & Internal documentation
+LINE_SHARE_TEMPLATE.md
+local-server.ps1
+ローカルテスト起動.bat
+*.bat
+*.ps1
