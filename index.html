@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界自然遺産・西表島 | 仲間川地区保全利用協定 公式サイト</title>
+    <!-- SEOメタタグ -->
+    <meta name="description" content="日本最大規模のマングローブ林を擁する沖縄県西表島・仲間川。自然保護と持続可能な観光を両立する「仲間川地区保全利用協定」の公式ホームページです。リアルタイム潮汐やルール、公認事業者一覧を提供。">
+    <meta name="keywords" content="仲間川,保全利用協定,西表島,マングローブ,エコツーリズム,環境DNA,カヌー,遊覧船,ルール">
+    
+    <!-- OGPタグ -->
+    <meta property="og:title" content="仲間川地区保全利用協定 公式サイト | 西表島エコツーリズムポータル">
+    <meta property="og:description" content="マングローブを未来へつなぐ。仲間川の利用ルール、リアルタイム水位情報、公認ガイド事業者の一覧を掲載する公式情報サイトです。">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="images/hero_nakama.jpg">
+    
+    <!-- アイコンとフォント -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- 
+    ========================================================================
+    ヘッダー ＆ ナビゲーション
+    ========================================================================
+    -->
+    <header id="main-header">
+        <div class="container header-container">
+            <a href="#" class="logo" id="logo-link">
+                <div class="logo-text">
+                    <h1>仲間川地区保全利用協定</h1>
+                    <span>Nakama River Conservation & Utilization Agreement</span>
+                </div>
+            </a>
+            
+            <button class="menu-toggle" id="menu-toggle-btn" aria-label="メニューを開く">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu" id="nav-menu-list">
+                <li class="nav-item active"><a href="#home">ホーム</a></li>
+                <li class="nav-item"><a href="#about">協定について</a></li>
+                <li class="nav-item"><a href="#rules">ルール・マナー</a></li>
+                <li class="nav-item"><a href="#operators">公認事業者</a></li>
+                <li class="nav-item"><a href="#activities">活動実績</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 
+    ========================================================================
+    メインコンテンツ
+    ========================================================================
+    -->
+    <main>
+        
+        <!-- ヒーローセクション -->
+        <section id="home" class="hero">
+            <div class="hero-slider">
+                <div class="hero-slide active" style="background-image: url('images/hero_nakama.jpg');"></div>
+            </div>
+            <div class="hero-overlay"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <span class="hero-tag">World Natural Heritage</span>
+                    <h2>守り、伝える。<br>日本最大級のマングローブ林</h2>
+                    <p class="lead">世界自然遺産・西表島の大切な自然環境を未来へと繋ぐため、私たちは「守りながら利用する」持続可能なエコツーリズムを推進しています。</p>
+                    <div class="hero-buttons">
+                        <a href="#rules" class="btn btn-primary">ルールを確認する</a>
+                        <a href="#operators" class="btn btn-secondary">公認事業者を選ぶ</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- リアルタイム潮汐＆利用状況ダッシュボード -->
+        <section class="dashboard container" id="dashboard-section">
+            <div class="dashboard-card">
+                <div class="dashboard-header">
+                    <div class="dashboard-title">
+                        <i class="fas fa-satellite-dish" style="color: var(--color-primary-cyan);"></i>
+                        <h3>仲間川リアルタイム潮汐 ＆ 利用可能状況</h3>
+                    </div>
+                    <div class="dashboard-date" id="db-date">2026/05/30 23:15 更新</div>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <!-- 水位情報 -->
+                    <div class="db-item">
+                        <div>
+                            <div class="db-item-label">
+                                <i class="fas fa-water"></i>
+                                <span>現在の水位・潮目</span>
+                            </div>
+                            <div class="db-item-value" id="tide-level-val">150cm (満潮)</div>
+                        </div>
+                        <div class="db-item-status status-ok" id="tide-status-badge">
+                            <span class="status-dot"></span>満潮（入域適時）
+                        </div>
+                    </div>
+                    
+                    <!-- 動力船（遊覧船）運航ステータス -->
+                    <div class="db-item">
+                        <div>
+                            <div class="db-item-label">
+                                <i class="fas fa-ship"></i>
+                                <span>動力船（遊覧船）の運航</span>
+                            </div>
+                            <div class="db-item-value">通常運航</div>
+                        </div>
+                        <div class="db-item-status status-ok" id="boat-status-badge">
+                            <span class="status-dot"></span>全域航行可能 (徐行遵守)
+                        </div>
+                    </div>
+                    
+                    <!-- カヌー・SUP入域ステータス -->
+                    <div class="db-item">
+                        <div>
+                            <div class="db-item-label">
+                                <i class="fas fa-shuttle-space"></i>
+                                <span>カヌー・SUPの入域</span>
+                            </div>
+                            <div class="db-item-value">入域制限内</div>
+                        </div>
+                        <div class="db-item-status status-ok" id="canoe-status-badge">
+                            <span class="status-dot"></span>規制なし (ガイド同伴)
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 潮汐データに関する事前注意書き -->
+                <div class="dashboard-notice">
+                    <i class="fas fa-info-circle"></i>
+                    <span>本情報は気象庁の発表する事前潮汐予測（石垣島）に基づき算出しています。台風や集中豪雨、強風等の突発的な天候影響による実際の潮位変化までは反映されません。現地の警報や実際の川の状況、ガイド事業者の指示に必ず従ってください。</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- クイックナビゲーション -->
+        <section class="container" id="quick-nav-section">
+            <div class="quick-nav">
+                <!-- カード1 -->
+                <div class="nav-card">
+                    <div class="nav-card-image">
+                        <img src="images/hero_nakama.jpg" alt="仲間川の自然について">
+                    </div>
+                    <div class="nav-card-content">
+                        <div>
+                            <h4>仲間川と保全利用協定</h4>
+                            <p>日本一のマングローブ林を擁する仲間川の自然特性と、協定が誕生した歴史的背景をご紹介します。</p>
+                        </div>
+                        <a href="#about" class="nav-card-link">詳しく見る <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- カード2 -->
+                <div class="nav-card">
+                    <div class="nav-card-image">
+                        <img src="images/canue.jpg" alt="ルールとマナー">
+                    </div>
+                    <div class="nav-card-content">
+                        <div>
+                            <h4>仲間川ルールとマナー</h4>
+                            <p>動力船の速度制限、カヌーのゾーン別艇数上限など、自然と調和して楽しむための大切な決まり事です。</p>
+                        </div>
+                        <a href="#rules" class="nav-card-link">詳しく見る <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- カード3 -->
+                <div class="nav-card">
+                    <div class="nav-card-image" style="background-color: #FFFFFF; padding: 8px; display: flex; align-items: center; justify-content: center;">
+                        <img src="images/rogo.jpg" alt="締結事業者" style="object-fit: contain; width: 100%; height: 100%;">
+                    </div>
+                    <div class="nav-card-content">
+                        <div>
+                            <h4>締結事業者一覧</h4>
+                            <p>本保全利用協定を締結し、環境保護ルールを厳格に守って安全なエコツアーを提供する公認ガイド事業者の一覧です。</p>
+                        </div>
+                        <a href="#operators" class="nav-card-link">詳しく見る <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- カード4 -->
+                <div class="nav-card">
+                    <div class="nav-card-image">
+                        <img src="images/eDNA.JPG" alt="環境DNA調査">
+                    </div>
+                    <div class="nav-card-content">
+                        <div>
+                            <h4>学術調査・活動実績</h4>
+                            <p>定期モニタリング（砂泥・幼木）や、琉球大学との共同研究による「環境DNA調査」など、科学的活動の実績です。</p>
+                        </div>
+                        <a href="#activities" class="nav-card-link">詳しく見る <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================================================
+        1. 仲間川と仲間川地区保全利用協定について
+        ========================================================================
+        -->
+        <section id="about" class="about-section section-padding">
+            <div class="container">
+                <div class="section-title">
+                    <h2>仲間川と保全利用協定について</h2>
+                    <p>About Nakama River & The Conservation Agreement</p>
+                </div>
+                
+                <div class="about-grid">
+                    <div class="about-content">
+                        <h3>日本最大規模のマングローブ林を未来へ</h3>
+                        <p>仲間川は、世界自然遺産・西表島の南東部に位置する、多様な生物を育む豊かな汽水河川です。河口から中流域にかけて広がる日本最大規模のマングローブ林は、多重の厳格な法的指定によって保護されています。</p>
+                        <p>しかし、1990年代後半からの観光急増に伴い、大型観光船のひき波によるマングローブの倒伏被害など、深刻な環境破壊に直面しました。この問題に立ち向かうため、2004年に民間事業者たちが結束し、国内初の画期的な自主規制ルールである「保全利用協定」が誕生しました。</p>
+                        
+                        <div class="about-highlights">
+                            <div class="highlight-item">
+                                <div class="highlight-icon"><i class="fas fa-shield-halved"></i></div>
+                                <div class="highlight-text">
+                                    <h4>多重の法的保護と世界自然遺産</h4>
+                                    <p>国立公園、国の天然保護区域、森林生態系保護地域に指定され、ほぼ全域が世界自然遺産の登録区域です。</p>
+                                </div>
+                            </div>
+                            
+                            <div class="highlight-item">
+                                <div class="highlight-icon"><i class="fas fa-handshake"></i></div>
+                                <div class="highlight-text">
+                                    <h4>地域主導の先駆的保全モデル</h4>
+                                    <p>沖縄振興特別措置法に基づく保全協定の認定第1号であり、2005年には環境省の「エコツーリズム大賞特別賞」を受賞しました。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-visual">
+                        <img src="images/hero_nakama.jpg" alt="仲間川マングローブ林の大パノラマ">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================================================
+        2. 仲間川のルールとマナー（仲間川グレード）
+        ========================================================================
+        -->
+        <section id="rules" class="rules-section section-padding">
+            <div class="container">
+                <div class="section-title">
+                    <h2>仲間川の利用ルール ＆ マナー</h2>
+                    <p>River Guidelines & Conservation Rules</p>
+                </div>
+
+                <div class="rules-intro-box">
+                    <h3>「守りながら利用する」特別なエコ体験のために</h3>
+                    <p>仲間川においても、河川の健全性と利用者の安全を守るための厳格な「仲間川ルール」を定めています。これらの規制は、事業者自らのモニタリング調査（砂泥移動や環境DNA）に基づく科学的因果関係に支えられています。</p>
+                </div>
+
+                <!-- タブ切り替えボタン -->
+                <div class="rules-tabs">
+                    <button class="rule-tab-btn active" data-tab="tab-boat"><i class="fas fa-ship"></i> 動力船・遊覧船</button>
+                    <button class="rule-tab-btn" data-tab="tab-canoe"><i class="fas fa-shuttle-space"></i> カヌー・SUP</button>
+                    <button class="rule-tab-btn" data-tab="tab-env"><i class="fas fa-leaf"></i> 環境共通マナー</button>
+                    <button class="rule-tab-btn" data-tab="tab-local"><i class="fas fa-users"></i> 地域住民・漁業への配慮</button>
+                </div>
+
+                <!-- タブコンテンツエリア -->
+                <div class="rule-content-wrapper">
+                    <!-- タブ1: 動力船 -->
+                    <div class="rule-tab-content active" id="tab-boat">
+                        <div class="rule-grid">
+                            <div class="rule-text-area">
+                                <h3><i class="fas fa-ship" style="color: var(--color-primary-cyan);"></i> 動力船・遊覧船の制限事項</h3>
+                                <div class="rule-list">
+                                    <div class="rule-list-item">
+                                        <span class="rule-badge">速度制限</span>
+                                        <div class="rule-info">
+                                            <h4>徐行区間（5ノット以下）の厳守</h4>
+                                            <p>マーラングミ（マングローブ密集地域）より上流は全面徐行です。船のひき波がマングローブの根元の土壌を流出させ、倒伏を引き起こすのを防ぐための最も重要なルールです。</p>
+                                        </div>
+                                    </div>
+                                    <div class="rule-list-item">
+                                        <span class="rule-badge badge-limit">隻数制限</span>
+                                        <div class="rule-info">
+                                            <h4>1時間あたり最大10隻までの進入枠</h4>
+                                            <p>川の過密化と累積的なひき波負荷を最小限に抑えるため、公認事業者の動力船の同時進入隻数を厳しく抑制しています。</p>
+                                        </div>
+                                    </div>
+                                    <div class="rule-list-item">
+                                        <span class="rule-badge badge-danger">禁止事項</span>
+                                        <div class="rule-info">
+                                            <h4>追い越し禁止・エコ船の義務化</h4>
+                                            <p>全区間での追い越しを禁止し、右側通行を徹底。また、ひき波が立ちにくい特別設計の「エコ仕様船」の積極的導入を行っています。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rule-visual-area">
+                                <img src="images/hero_nakama.jpg" alt="動力船航行ルール図解" style="width:100%; max-width:320px;">
+                                <p>マングローブの倒伏を防ぐため、上流部は全て徐行（5ノット＝時速約9km）で進みます。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- タブ2: カヌー・SUP -->
+                    <div class="rule-tab-content" id="tab-canoe">
+                        <div class="rule-grid">
+                            <div class="rule-text-area">
+                                <h3><i class="fas fa-shuttle-space" style="color: var(--color-primary-cyan);"></i> カヌー・SUPの利用枠と安全基準</h3>
+                                <div class="rule-list">
+                                    <div class="rule-list-item">
+                                        <span class="rule-badge badge-limit">艇数上限</span>
+                                        <div class="rule-info">
+                                            <h4>エリア別の1日あたり艇数上限（キャップ制）</h4>
+                                            <p>・下流エリア：午前・午後それぞれ「50艇（最大100名）」まで<br>・中流エリア：1日あたり「50艇」まで（※大規団体利用は禁止）<br>・上流エリア：1日あたり「20艇」まで（※大規団体利用は禁止）</p>
+                                        </div>
+                                    </div>
+                                    <div class="rule-list-item">
+                                        <span class="rule-badge">人数制限</span>
+                                        <div class="rule-info">
+                                            <h4>ガイド1名につき客数8名まで</h4>
+                                            <p>安心・安全できめ細やかなエコツアーを提供するため、また自然景観の損耗を防ぐため、少人数制を徹底しています。</p>
+                                        </div>
+                                    </div>
+                                    <div class="rule-list-item">
+                                        <span class="rule-badge">安全装備</span>
+                                        <div class="rule-info">
+                                            <h4>ライフジャケット着用 ＆ ガイド同伴義務</h4>
+                                            <p>仲間川の自然体験には、安全のため協定公認ガイドの同伴が必須です。事前レクチャーの実施と傷害保険の加入も義務付けられています。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rule-visual-area">
+                                <img src="images/canue.jpg" alt="カヌー利用ルール図解" style="width:100%; max-width:320px;">
+                                <p>利用者の過密化を避け、静寂な大自然を楽しむため、中上流域の艇数枠は極めて厳格に抑えられています。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- タブ3: 環境共通マナー -->
+                    <div class="rule-tab-content" id="tab-env">
+                        <div class="rule-grid">
+                            <div class="rule-text-area">
+                                <h3><i class="fas fa-leaf" style="color: var(--color-primary-cyan);"></i> 自然を守るための共通マナー</h3>
+                                <div class="rule-list">
+                                    <div class="rule-list-item">
+                                        <span class="rule-badge badge-danger">禁止事項</span>
+                                        <div class="rule-info">
+                                            <h4>動植物の採取・殺傷の全面禁止</h4>
+                                            <p>世界自然遺産および森林生態系保護地域内でのすべての植物の採取、魚釣り、野生生物の捕獲・干渉は法律および協定で厳しく禁じられています。</p>
+                                        </div>
+                                    </div>
+                                    <div class="rule-list-item">
+                                        <span class="rule-badge">廃棄物管理</span>
+                                        <div class="rule-info">
+                                            <h4>ゴミは全て持ち帰り・見つけたゴミの積極的回収</h4>
+                                            <p>ペットボトルやゴミの投棄は厳禁です。ツアー中に見つけた漂着プラスチック等は、公認ガイドが積極的に回収するクリーン活動を行っています。</p>
+                                        </div>
+                                    </div>
+                                    <div class="rule-list-item">
+                                        <span class="rule-badge badge-danger">禁止事項</span>
+                                        <div class="rule-info">
+                                            <h4>禁煙の徹底と木道デッキ外への立ち入り禁止</h4>
+                                            <p>自然休養林内は原則禁煙です。特に上流の巨樹「サキシマスオウノキ」を保護するため、整備された遊歩道の木柵から外の原生林へ踏み込むことは絶対におやめください。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rule-visual-area">
+                                <img src="images/suou.jpg" alt="サキシマスオウノキ保護" style="width:100%; max-width:320px;">
+                                <p>何百年もの歳月をかけて育った巨樹の根元を踏み固めから守るため、木道（デッキ）以外の立ち入りは厳禁です。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- タブ4: 地域への配慮 -->
+                    <div class="rule-tab-content" id="tab-local">
+                        <div class="rule-grid">
+                            <div class="rule-text-area">
+                                <h3><i class="fas fa-users" style="color: var(--color-primary-cyan);"></i> 地域生活と伝統文化との調和</h3>
+                                <div class="rule-list">
+                                    <div class="rule-list-item">
+                                        <span class="rule-badge">漁業配慮</span>
+                                        <div class="rule-info">
+                                            <h4>ガサミ漁（カニ籠）など仕掛けへの不干渉</h4>
+                                            <p>仲間川は、地元漁業者にとって大切な生活の場（生業のフィールド）でもあります。仕掛けられている漁具には決して触れず、漁船とすれ違う際は必ず最徐行してください。</p>
+                                        </div>
+                                    </div>
+                                    <div class="rule-list-item">
+                                        <span class="rule-badge badge-limit">入山制限</span>
+                                        <div class="rule-info">
+                                            <h4>リュウキュウイノシシ狩猟期間中の注意</h4>
+                                            <p>毎年11月15日〜翌年2月15日は、西表島の伝統的なイノシシ猟の期間です。誤射などの安全確保および猟師の生業への配慮から、期間中は川沿いの山林エリアへ絶対に立ち入らないでください。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rule-visual-area">
+                                <img src="images/local_harmony.png" alt="伝統的な生業とエコツーリズムの共存" style="width:100%; max-width:320px;">
+                                <p>西表島の伝統的な生業とエコツーリズムが共存し、お互いを尊重しあう持続可能な関係を目指しています。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================================================
+        3. 締結事業者一覧
+        ========================================================================
+        -->
+        <section id="operators" class="operators-section section-padding">
+            <div class="container">
+                <div class="section-title">
+                    <h2>協定締結公認事業者一覧</h2>
+                    <p>Certified Ecotour Operators Directory</p>
+                </div>
+
+                <div class="rules-intro-box" style="margin-bottom:50px;">
+                    <h3>公認事業者のツアーを利用する意義</h3>
+                    <p>仲間川の豊かなマングローブ林の中で操業を行うガイド事業者は、本「仲間川地区保全利用協定」への加入・署名が義務付けられています。公認事業者によるツアーを選択していただくこと自体が、仲間川の自然を守る寄付と活動への賛同に直結します。ぜひ、ご希望のアクティビティに適合する事業者をお選びください。</p>
+                </div>
+
+                <!-- フィルターバー -->
+                <div class="filter-bar">
+                    <button class="filter-btn active" data-filter="all">すべて表示</button>
+                    <button class="filter-btn" data-filter="powerboat"><i class="fas fa-ship"></i> 動力船・遊覧船</button>
+                    <button class="filter-btn" data-filter="canoe"><i class="fas fa-shuttle-space"></i> カヌー・カヤック</button>
+                    <button class="filter-btn" data-filter="sup"><i class="fas fa-water"></i> SUP</button>
+                    <button class="filter-btn" data-filter="trekking"><i class="fas fa-mountain"></i> 登山・トレッキング</button>
+                </div>
+
+                <!-- リアルタイム検索バー -->
+                <div class="search-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" id="operator-search" placeholder="事業者名やキーワードで検索...">
+                </div>
+
+                <!-- 事業者グリッド（JavaScriptで動的生成） -->
+                <div class="operators-grid" id="operators-grid">
+                    <!-- JSが読み込まれなかった場合のフォールバック表示 -->
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--color-text-muted);">
+                        現在、事業者の構造データを読み込んでいます...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================================================
+        4. 活動実績
+        ========================================================================
+        -->
+        <section id="activities" class="activity-section section-padding">
+            <div class="container">
+                <div class="section-title">
+                    <h2>学術調査・活動実績報告</h2>
+                    <p>Scientific Monitoring & Action Records</p>
+                </div>
+
+                <div class="activity-grid">
+                    <!-- 左側：活動実績サマリー -->
+                    <div class="activity-summary-area">
+                        <div class="activity-intro">
+                            <h3>蓄積された20年のデータとモニタリング</h3>
+                            <p>私たちは協定に基づくルールをただ掲げるだけでなく、その実効性を検証するために専門機関（林野庁西表森林環境保全ふれあいセンター等）の支援のもと、共同でフィールド調査を続けてきました。</p>
+                            <p>3ヶ月ごとの砂泥の移動調査（ひき波による侵食がないかの追跡調査）では、有意な砂泥の流出が見られなくなったため2023年に終了。これは、私たちが徹底した徐行と隻数制限ルールがマングローブの土壌を完璧に保護したことを示す、輝かしい科学的証明です。</p>
+                        </div>
+                        
+                        <div class="monitoring-cards">
+                            <div class="m-card">
+                                <div class="m-card-date">ANNUAL EVENT</div>
+                                <h4>合同クリーンアップ活動</h4>
+                                <p>年に数回、協定を結ぶすべての事業者が集まり、仲間川の流域全体、マングローブの根元に絡まる漂着ゴミの清掃活動を行っています。</p>
+                            </div>
+                            <div class="m-card">
+                                <div class="m-card-date">MONITORING</div>
+                                <h4>マングローブ幼木とヒルギの成長モニタリング</h4>
+                                <p>自然の回復力を測定するため、指定区画におけるマングローブの幼木の成長や種子の定着率などを定期的に観察・記録しています。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右側：環境DNAデジタルギャラリー（ナイトフォレストダークスキン） -->
+                    <div class="dna-gallery-box">
+                        <div>
+                            <div class="dna-header">
+                                <h3><i class="fas fa-dna"></i> 仲間川環境DNAデジタル生物図鑑</h3>
+                                <p>「環境DNA（コップ1杯の水から生き物を特定する最先端技術）」の学術的な調査成果です。仲間川の豊かな健全性と生物多様性を表す、主要な野生生物のデータを掲載しています。</p>
+                            </div>
+                            
+                            <!-- DNAカテゴリ切り替え -->
+                            <div class="dna-tabs">
+                                <button class="dna-tab-btn active" data-cat="all">すべての生物</button>
+                                <button class="dna-tab-btn" data-cat="upper">上流域（淡水）</button>
+                                <button class="dna-tab-btn" data-cat="lower">下流域（汽水・泥底）</button>
+                                <button class="dna-tab-btn" data-cat="prawn">エビ類（甲殻類）</button>
+                                <button class="dna-tab-btn" data-cat="rare">希少種・在来種</button>
+                            </div>
+                            
+                            <div class="dna-body-content">
+                                <!-- DNA生物グリッド -->
+                                <div class="dna-grid" id="dna-species-grid">
+                                    <!-- JSで動的生成 -->
+                                </div>
+                                
+                                <!-- 詳細パネル -->
+                                <div class="dna-detail-panel" id="dna-detail-panel">
+                                    <!-- JSで動的生成 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 
+    ========================================================================
+    フッター
+    ========================================================================
+    -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- ブランディング -->
+                <div class="footer-brand">
+                    <h3>仲間川地区保全利用協定連絡協議会</h3>
+                    <span>Nakama River Conservation & Utilization Agreement Association</span>
+                    <p>私たちは、沖縄県八重山郡竹富町西表島において、仲間川の貴重なマングローブ林および周辺の生態系を守り、持続可能なエコツーリズムを確立するために活動する公認ガイド事業者の共同体です。</p>
+                </div>
+                
+                <!-- ナビゲーションリンク -->
+                <div class="footer-links">
+                    <h4>サイト案内</h4>
+                    <ul>
+                        <li><a href="#home">ホーム</a></li>
+                        <li><a href="#about">協定の背景・目的</a></li>
+                        <li><a href="#rules">協定が定めるルール</a></li>
+                        <li><a href="#operators">公認事業者検索ディレクトリ</a></li>
+                        <li><a href="#activities">学術調査・クリーンアップ実績</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 事務局情報・協定期間 -->
+                <div class="footer-info">
+                    <h4>事務局・協定概要</h4>
+                    <p><strong>代表事業者（事務局）:</strong><br>西表島交通株式会社<br>代表：玉盛 雅治</p>
+                    <p><strong>協定有効期間:</strong><br>令和6年4月1日 〜 令和11年3月31日<br>（沖縄県知事認定・第1号更新）</p>
+                </div>
+            </div>
+            
+            <!-- フッター下部 -->
+            <div class="footer-bottom">
+                <p>&copy; 2026 仲間川地区保全利用協定連絡協議会. All Rights Reserved. (Google Antigravity 2.0 Agent Web Build)</p>
+                <div class="footer-bottom-links">
+                    <a href="https://www.pref.okinawa.jp/" target="_blank" rel="noopener noreferrer">沖縄県公認ページ</a>
+                    <a href="https://iriomote.com/" target="_blank" rel="noopener noreferrer">西表島交通【公式】</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- スクリプトの読み込み -->
+    <script src="script.js"></script>
+</body>
+</html>

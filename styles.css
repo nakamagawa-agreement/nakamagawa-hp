@@ -1,0 +1,1467 @@
+/* 
+========================================================================
+仲間川地区保全利用協定 公式ホームページ プレミアムデザインシステム (styles.css)
+========================================================================
+*/
+
+/* Google Fontsのインポート */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap');
+
+/* デザインシステムトークンの定義 */
+:root {
+    /* カラーパレット */
+    --color-primary-green: #0A3A20;      /* 深みのあるマングローブフォレストグリーン */
+    --color-primary-green-light: #165634;
+    --color-primary-cyan: #007D8A;       /* 透明度の高い汽水域のエメラルドタイド */
+    --color-primary-cyan-light: #009EAE;
+    --color-bg-sand: #F7F6F3;            /* ビーチの白砂をイメージした温かみのあるクリームホワイト */
+    --color-bg-card: #FFFFFF;
+    --color-text-dark: #1A2620;          /* 視認性の高いソフトなダークグリーンブラック */
+    --color-text-muted: #5C6E64;
+    --color-accent-gold: #C5A059;        /* 夕陽やサキマサスオウノキをイメージしたゴールド */
+    --color-accent-blue: #2980B9;
+    --color-accent-orange: #E67E22;
+    --color-accent-red: #D35400;
+    
+    /* ステータスカラー（ダッシュボード用） */
+    --color-status-green: #2ECC71;       /* 正常・運航可 */
+    --color-status-yellow: #F1C40F;      /* 注意・混雑 */
+    --color-status-red: #E74C3C;         /* 規制中・進入禁止 */
+
+    /* フォントファミリー */
+    --font-jp: 'Noto Sans JP', sans-serif;
+    --font-en: 'Outfit', sans-serif;
+
+    /* トランジションとシャドウ */
+    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-micro: all 0.2s ease;
+    --shadow-premium: 0 10px 30px rgba(10, 58, 32, 0.05);
+    --shadow-hover: 0 20px 40px rgba(10, 58, 32, 0.12);
+    --shadow-inner: inset 0 2px 4px rgba(0,0,0,0.06);
+    --border-radius-lg: 16px;
+    --border-radius-md: 10px;
+    --border-radius-sm: 6px;
+}
+
+/* リセット＆ベーススタイル */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-jp);
+    background-color: var(--color-bg-sand);
+    color: var(--color-text-dark);
+    line-height: 1.8;
+    overflow-x: hidden;
+}
+
+/* タイポグラフィ */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition-micro);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* コンテナと共通レイアウト */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.section-padding {
+    padding: 100px 0;
+}
+
+.text-center { text-align: center; }
+
+/* 共通セクションタイトル */
+.section-title {
+    margin-bottom: 60px;
+    text-align: center;
+    position: relative;
+}
+
+.section-title h2 {
+    font-size: 2.2rem;
+    color: var(--color-primary-green);
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary-green), var(--color-primary-cyan));
+    border-radius: 2px;
+}
+
+.section-title p {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+/* 
+========================================================================
+1. ヘッダー ＆ ナビゲーション (Header & Navigation)
+========================================================================
+*/
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(247, 246, 243, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(10, 58, 32, 0.08);
+    transition: var(--transition-smooth);
+}
+
+header.scrolled {
+    padding: 5px 0;
+    background: rgba(10, 58, 32, 0.95);
+    color: #FFFFFF;
+    border-bottom: none;
+}
+
+header.scrolled a {
+    color: #FFFFFF;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    transition: var(--transition-smooth);
+}
+
+header.scrolled .header-container {
+    height: 65px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-text h1 {
+    font-size: 1.25rem;
+    color: var(--color-primary-green);
+    line-height: 1.2;
+}
+
+header.scrolled .logo-text h1 {
+    color: #FFFFFF;
+}
+
+.logo-text span {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    display: block;
+}
+
+header.scrolled .logo-text span {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 32px;
+}
+
+.nav-item a {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--color-text-dark);
+    position: relative;
+    padding: 8px 0;
+}
+
+.nav-item a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary-cyan);
+    transition: var(--transition-micro);
+}
+
+.nav-item a:hover::after,
+.nav-item.active a::after {
+    width: 100%;
+}
+
+/* スマホ用メニューボタン */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 28px;
+    height: 2px;
+    background-color: var(--color-text-dark);
+    transition: var(--transition-micro);
+}
+
+header.scrolled .menu-toggle span {
+    background-color: #FFFFFF;
+}
+
+/* 
+========================================================================
+2. ヒーローセクション (Hero Section)
+========================================================================
+*/
+.hero {
+    position: relative;
+    height: 90vh;
+    min-height: 600px;
+    background-color: var(--color-primary-green);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+    margin-top: 80px;
+}
+
+.hero-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.hero-slide.active {
+    opacity: 0.35; /* 画像の上に文字を重ねるため、適度に透過させる */
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(10, 58, 32, 0.9) 0%, rgba(0, 125, 138, 0.4) 100%);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 800px;
+    padding-top: 40px;
+}
+
+.hero-tag {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(4px);
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    text-transform: uppercase;
+}
+
+.hero h2 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 24px;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.hero p.lead {
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 40px;
+    max-width: 600px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition-micro);
+    border: none;
+    text-align: center;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-primary-cyan), var(--color-primary-cyan-light));
+    color: #FFFFFF;
+    box-shadow: 0 4px 15px rgba(0, 125, 138, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 125, 138, 0.4);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(4px);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+/* 
+========================================================================
+3. リアルタイム・仲間川ダッシュボード (Dashboard)
+========================================================================
+*/
+.dashboard {
+    position: relative;
+    z-index: 10;
+    margin-top: -60px; /* ヒーローの下部に半分重ねる */
+    margin-bottom: 60px;
+}
+
+.dashboard-card {
+    background-color: var(--color-bg-card);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 15px 40px rgba(10, 58, 32, 0.08);
+    padding: 30px;
+    border: 1px solid rgba(10, 58, 32, 0.05);
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(10, 58, 32, 0.08);
+    padding-bottom: 15px;
+    margin-bottom: 24px;
+}
+
+.dashboard-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dashboard-title h3 {
+    font-size: 1.2rem;
+    color: var(--color-primary-green);
+}
+
+.dashboard-date {
+    font-family: var(--font-en);
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+.db-item {
+    padding: 20px;
+    border-radius: var(--border-radius-md);
+    background-color: rgba(10, 58, 32, 0.02);
+    border: 1px solid rgba(10, 58, 32, 0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.db-item-label {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.db-item-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary-green);
+    margin-bottom: 8px;
+}
+
+.db-item-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 30px;
+    align-self: flex-start;
+}
+
+/* ステータス別デザイン */
+.status-ok {
+    background-color: rgba(46, 204, 113, 0.12);
+    color: var(--color-status-green);
+}
+
+.status-ok .status-dot {
+    background-color: var(--color-status-green);
+    box-shadow: 0 0 8px var(--color-status-green);
+}
+
+.status-warning {
+    background-color: rgba(241, 196, 15, 0.12);
+    color: #D4AC0D;
+}
+
+.status-warning .status-dot {
+    background-color: var(--color-status-yellow);
+    box-shadow: 0 0 8px var(--color-status-yellow);
+}
+
+.status-danger {
+    background-color: rgba(231, 76, 60, 0.12);
+    color: var(--color-status-red);
+}
+
+.status-danger .status-dot {
+    background-color: var(--color-status-red);
+    box-shadow: 0 0 8px var(--color-status-red);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* ダッシュボード注意書き */
+.dashboard-notice {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px dashed rgba(10, 58, 32, 0.1);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+.dashboard-notice i {
+    color: var(--color-primary-cyan);
+    margin-top: 3px;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+/* 
+========================================================================
+4. クイックナビゲーションカード (Quick Navigation Cards)
+========================================================================
+*/
+.quick-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    margin-bottom: 80px;
+}
+
+.nav-card {
+    background-color: var(--color-bg-card);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-premium);
+    overflow: hidden;
+    transition: var(--transition-smooth);
+    border: 1px solid rgba(10, 58, 32, 0.03);
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}
+
+.nav-card-image {
+    height: 180px;
+    overflow: hidden;
+    position: relative;
+}
+
+.nav-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-smooth);
+}
+
+.nav-card:hover .nav-card-image img {
+    transform: scale(1.08);
+}
+
+.nav-card-content {
+    padding: 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.nav-card-content h4 {
+    font-size: 1.2rem;
+    color: var(--color-primary-green);
+    margin-bottom: 12px;
+}
+
+.nav-card-content p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.nav-card-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-primary-cyan);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+}
+
+.nav-card-link i {
+    transition: var(--transition-micro);
+}
+
+.nav-card:hover .nav-card-link i {
+    transform: translateX(4px);
+}
+
+/* 
+========================================================================
+5. 仲間川と保全利用協定について (About the Agreement)
+========================================================================
+*/
+.about-section {
+    background-color: #FFFFFF;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about-content h3 {
+    font-size: 1.6rem;
+    color: var(--color-primary-green);
+    margin-bottom: 20px;
+}
+
+.about-content p {
+    font-size: 1rem;
+    color: var(--color-text-dark);
+    margin-bottom: 24px;
+}
+
+.about-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.highlight-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(0, 125, 138, 0.1);
+    color: var(--color-primary-cyan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.highlight-text h4 {
+    font-size: 1rem;
+    color: var(--color-primary-green);
+    margin-bottom: 4px;
+}
+
+.highlight-text p {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.about-visual {
+    position: relative;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-hover);
+}
+
+.about-visual img {
+    width: 100%;
+    height: auto;
+}
+
+/* 
+========================================================================
+6. 仲間川ルール「仲間川グレード」 (Nakama River Rules & Map)
+========================================================================
+*/
+.rules-section {
+    background-color: var(--color-bg-sand);
+}
+
+.rules-intro-box {
+    background-color: #FFFFFF;
+    padding: 30px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-premium);
+    margin-bottom: 40px;
+    border-left: 5px solid var(--color-primary-cyan);
+}
+
+.rules-intro-box h3 {
+    color: var(--color-primary-green);
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+}
+
+.rules-intro-box p {
+    font-size: 0.95rem;
+    color: var(--color-text-dark);
+}
+
+.rules-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.rule-tab-btn {
+    padding: 12px 28px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 30px;
+    border: 1px solid rgba(10, 58, 32, 0.1);
+    background-color: #FFFFFF;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: var(--transition-micro);
+}
+
+.rule-tab-btn:hover {
+    color: var(--color-primary-cyan);
+    border-color: var(--color-primary-cyan);
+}
+
+.rule-tab-btn.active {
+    background-color: var(--color-primary-cyan);
+    color: #FFFFFF;
+    border-color: var(--color-primary-cyan);
+    box-shadow: 0 4px 12px rgba(0, 125, 138, 0.25);
+}
+
+.rule-content-wrapper {
+    background-color: #FFFFFF;
+    border-radius: var(--border-radius-lg);
+    padding: 40px;
+    box-shadow: var(--shadow-premium);
+}
+
+.rule-tab-content {
+    display: none;
+}
+
+.rule-tab-content.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+.rule-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+}
+
+.rule-text-area h3 {
+    font-size: 1.5rem;
+    color: var(--color-primary-green);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.rule-list-item {
+    display: flex;
+    gap: 16px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(10, 58, 32, 0.06);
+}
+
+.rule-list-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.rule-badge {
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 30px;
+    background-color: var(--color-primary-cyan);
+    color: #FFFFFF;
+    flex-shrink: 0;
+    align-self: flex-start;
+}
+
+.rule-badge.badge-limit { background-color: var(--color-accent-orange); }
+.rule-badge.badge-danger { background-color: var(--color-accent-red); }
+
+.rule-info h4 {
+    font-size: 1.05rem;
+    color: var(--color-text-dark);
+    margin-bottom: 6px;
+}
+
+.rule-info p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+.rule-visual-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid rgba(10, 58, 32, 0.08);
+    padding-left: 40px;
+}
+
+.rule-visual-area img {
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+}
+
+.rule-visual-area p {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+/* 
+========================================================================
+7. 締結事業者一覧 (Certified Operators Directory)
+========================================================================
+*/
+.operators-section {
+    background-color: #FFFFFF;
+}
+
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.filter-btn {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 30px;
+    border: 1px solid rgba(10, 58, 32, 0.08);
+    background-color: var(--color-bg-sand);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: var(--transition-micro);
+}
+
+.filter-btn:hover {
+    color: var(--color-primary-green);
+    background-color: #FFFFFF;
+    border-color: var(--color-primary-green);
+}
+
+.filter-btn.active {
+    background-color: var(--color-primary-green);
+    color: #FFFFFF;
+    border-color: var(--color-primary-green);
+    box-shadow: 0 4px 12px rgba(10, 58, 32, 0.2);
+}
+
+.search-wrapper {
+    max-width: 400px;
+    margin: 0 auto 40px auto;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 14px 20px 14px 45px;
+    border-radius: 30px;
+    border: 1px solid rgba(10, 58, 32, 0.12);
+    background-color: var(--color-bg-sand);
+    font-family: var(--font-jp);
+    font-size: 0.9rem;
+    outline: none;
+    transition: var(--transition-micro);
+}
+
+.search-input:focus {
+    border-color: var(--color-primary-cyan);
+    background-color: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(0, 125, 138, 0.15);
+}
+
+.search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+.operators-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.operator-card {
+    background-color: var(--color-bg-sand);
+    border-radius: var(--border-radius-lg);
+    padding: 30px;
+    border: 1px solid rgba(10, 58, 32, 0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: var(--transition-smooth);
+}
+
+.operator-card:hover {
+    background-color: #FFFFFF;
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(10, 58, 32, 0.08);
+}
+
+.operator-card-header {
+    border-bottom: 1px solid rgba(10, 58, 32, 0.08);
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.operator-num {
+    font-family: var(--font-en);
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--color-primary-cyan);
+    margin-bottom: 4px;
+}
+
+.operator-card h4 {
+    font-size: 1.15rem;
+    color: var(--color-primary-green);
+    margin-bottom: 4px;
+}
+
+.operator-rep {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}
+
+.operator-body {
+    flex-grow: 1;
+    margin-bottom: 20px;
+}
+
+.operator-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-dark);
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.operator-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.operator-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 30px;
+    background-color: rgba(10, 58, 32, 0.06);
+    color: var(--color-text-muted);
+}
+
+.operator-tag.tag-powerboat {
+    background-color: rgba(0, 125, 138, 0.1);
+    color: var(--color-primary-cyan);
+}
+
+.operator-tag.tag-canoe {
+    background-color: rgba(197, 160, 89, 0.1);
+    color: #A37F39;
+}
+
+.operator-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.operator-status-text {
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.operator-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(10, 58, 32, 0.1);
+    color: var(--color-text-muted);
+    transition: var(--transition-micro);
+}
+
+.operator-card:hover .operator-btn {
+    background-color: var(--color-primary-cyan);
+    color: #FFFFFF;
+    border-color: var(--color-primary-cyan);
+}
+
+.operator-btn:hover {
+    transform: scale(1.1);
+}
+
+.operator-main-tours {
+    font-size: 0.8rem;
+    color: var(--color-text-dark);
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(10, 58, 32, 0.08);
+    line-height: 1.5;
+}
+
+.operator-main-tours strong {
+    color: var(--color-primary-green);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.85rem;
+}
+
+/* 
+========================================================================
+8. 活動実績（環境DNA＆モニタリング） (Activity Records & eDNA)
+========================================================================*/
+.activity-section {
+    background-color: var(--color-bg-sand);
+}
+
+.activity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 50px;
+    align-items: stretch;
+}
+
+.activity-summary-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.activity-intro h3 {
+    font-size: 1.5rem;
+    color: var(--color-primary-green);
+    margin-bottom: 18px;
+}
+
+.activity-intro p {
+    font-size: 0.95rem;
+    color: var(--color-text-dark);
+    margin-bottom: 24px;
+}
+
+.monitoring-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.m-card {
+    background-color: #FFFFFF;
+    border-radius: var(--border-radius-md);
+    padding: 20px;
+    box-shadow: var(--shadow-premium);
+    border-left: 4px solid var(--color-primary-cyan);
+    transition: var(--transition-micro);
+}
+
+.m-card:hover {
+    transform: translateX(5px);
+}
+
+.m-card-date {
+    font-family: var(--font-en);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-primary-cyan);
+    margin-bottom: 4px;
+}
+
+.m-card h4 {
+    font-size: 1rem;
+    color: var(--color-primary-green);
+    margin-bottom: 6px;
+}
+
+.m-card p {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* 環境DNA図鑑ボード（ダーク＆プレミアムスキン） */
+.dna-gallery-box {
+    background-color: #101F18; /* 高級感あふれるナイトフォレストダーク */
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 20px 50px rgba(10, 58, 32, 0.25);
+    padding: 40px;
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.dna-header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 20px;
+}
+
+.dna-header h3 {
+    font-size: 1.4rem;
+    color: #FFFFFF;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dna-header h3 i {
+    color: var(--color-status-green);
+    text-shadow: 0 0 10px rgba(46, 204, 113, 0.4);
+}
+
+.dna-header p {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.dna-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+.dna-tab-btn {
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background-color: rgba(255,255,255,0.03);
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: var(--transition-micro);
+    white-space: nowrap;
+}
+
+.dna-tab-btn:hover {
+    color: #FFFFFF;
+    border-color: rgba(255,255,255,0.25);
+}
+
+.dna-tab-btn.active {
+    background-color: var(--color-primary-cyan);
+    color: #FFFFFF;
+    border-color: var(--color-primary-cyan);
+    box-shadow: 0 4px 12px rgba(0, 125, 138, 0.4);
+}
+
+.dna-body-content {
+    min-height: 250px;
+}
+
+.dna-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.dna-item-card {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius-md);
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition-micro);
+}
+
+.dna-item-card:hover, .dna-item-card.active {
+    background-color: rgba(0, 125, 138, 0.15);
+    border-color: var(--color-primary-cyan);
+    transform: translateY(-3px);
+}
+
+.dna-item-icon {
+    font-size: 1.8rem;
+    color: var(--color-primary-cyan-light);
+    margin-bottom: 8px;
+}
+
+.dna-item-card.active .dna-item-icon {
+    color: #FFFFFF;
+}
+
+.dna-item-card h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+.dna-detail-panel {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius-md);
+    padding: 24px;
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.dna-detail-panel.active {
+    display: block;
+}
+
+.dna-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+}
+
+.dna-detail-title h4 {
+    font-size: 1.2rem;
+    color: #FFFFFF;
+}
+
+.dna-detail-title span {
+    font-family: var(--font-en);
+    font-style: italic;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    display: block;
+}
+
+.dna-detail-spot {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 30px;
+    background-color: rgba(46, 204, 113, 0.15);
+    color: var(--color-status-green);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.dna-detail-desc {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+}
+
+/* 
+========================================================================
+9. フッター (Footer)
+========================================================================
+*/
+footer {
+    background-color: var(--color-primary-green);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 60px 0 30px 0;
+    border-top: 5px solid var(--color-primary-cyan);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.footer-brand h3 {
+    font-size: 1.25rem;
+    color: #FFFFFF;
+    margin-bottom: 8px;
+}
+
+.footer-brand span {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    display: block;
+    margin-bottom: 20px;
+}
+
+.footer-brand p {
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.footer-links h4 {
+    font-size: 1rem;
+    color: #FFFFFF;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.footer-links h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background-color: var(--color-primary-cyan);
+}
+
+.footer-links ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-links a {
+    font-size: 0.85rem;
+    transition: var(--transition-micro);
+}
+
+.footer-links a:hover {
+    color: #FFFFFF;
+    transform: translateX(4px);
+    display: inline-block;
+}
+
+.footer-info h4 {
+    font-size: 1rem;
+    color: #FFFFFF;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.footer-info h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background-color: var(--color-primary-cyan);
+}
+
+.footer-info p {
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-bottom p {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-bottom-links {
+    display: flex;
+    gap: 20px;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-bottom-links a:hover {
+    color: #FFFFFF;
+}
+
+/* 
+========================================================================
+10. レスポンシブ調整 ＆ アニメーション (Responsive & Keyframes)
+========================================================================
+*/
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 992px) {
+    .section-padding { padding: 70px 0; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .rule-grid { grid-template-columns: 1fr; gap: 30px; }
+    .rule-visual-area { border-left: none; padding-left: 0; border-top: 1px solid rgba(10, 58, 32, 0.08); padding-top: 30px; }
+    .activity-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+@media (max-width: 768px) {
+    .hero h2 { font-size: 2.3rem; }
+    .hero p.lead { font-size: 1rem; }
+    .dashboard { margin-top: -30px; }
+    .dashboard-card { padding: 20px; }
+    .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background-color: var(--color-bg-sand);
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 0;
+        transition: var(--transition-smooth);
+        border-top: 1px solid rgba(10, 58, 32, 0.08);
+    }
+    
+    .nav-menu.open {
+        left: 0;
+    }
+    
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .logo-text h1 { font-size: 1.1rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+}
