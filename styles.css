@@ -1287,6 +1287,47 @@ header.scrolled .menu-toggle span {
     border: 1px solid rgba(46, 204, 113, 0.3);
 }
 
+.dna-detail-redlist-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.dna-detail-redlist {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.badge-redlist-cr {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.5);
+}
+
+.badge-redlist-en {
+    background-color: rgba(249, 115, 22, 0.2);
+    color: #fdba74;
+    border: 1px solid rgba(249, 115, 22, 0.5);
+}
+
+.badge-redlist-vu {
+    background-color: rgba(245, 158, 11, 0.2);
+    color: #fde047;
+    border: 1px solid rgba(245, 158, 11, 0.5);
+}
+
+.badge-redlist-nt {
+    background-color: rgba(16, 185, 129, 0.2);
+    color: #6ee7b7;
+    border: 1px solid rgba(16, 185, 129, 0.5);
+}
+
 .dna-detail-desc {
     font-size: 0.85rem;
     color: rgba(255, 255, 255, 0.8);

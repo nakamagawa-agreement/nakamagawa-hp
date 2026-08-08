@@ -594,55 +594,585 @@ function initOperatorFilter() {
 
 /* 
 ========================================================================
-5. 環境DNAデジタル図鑑（アカメ完全排除・安全な生き物リスト）
+5. 仲間川環境DNAデジタル生物図鑑（第1回調査結果全38種）
 ========================================================================
 */
 const DNA_SPECIES_DATA = [
     {
-        id: "ryukyu-doro",
-        name: "リュウキュウドロクイ",
-        sci: "Nematalosa come",
-        spot: "仲間川上流・中流",
-        icon: "fas fa-fish",
-        category: "upper",
-        desc: "仲間川の上流・汽水域の砂泥底において、環境DNA調査で圧倒的に最も多く検出された主役的魚種です。プランクトンや泥の中の有機物を吸い取って食べる、マングローブの生態系循環を静かに支える重要な魚です。ルアーや釣り等の対象にはならず、安全に紹介可能です。"
+        "id": "komochi-sayori",
+        "name": "コモチサヨリ",
+        "family": "コモチサヨリ属",
+        "locs": [
+            "upper"
+        ],
+        "spot": "仲間川上流桟橋",
+        "moe": "準絶滅危惧",
+        "okinawa": "準絶滅危惧",
+        "iucn": "",
+        "rankCategory": "vu_nt",
+        "icon": "fas fa-fish",
+        "desc": "卵ではなく子どもを産む卵胎生のサヨリ類。仲間川上流桟橋周辺の汽水～淡水域で検出され、豊かな水質環境の保全状態を物語っています。"
     },
     {
-        id: "okuchi-yugoi",
-        name: "オオクチユゴイ",
-        sci: "Kuhlia rupestris",
-        sciExtra: "(ジャングルパーチ)",
-        spot: "仲間川最上流 (淡水域)",
-        icon: "fas fa-water",
-        category: "upper",
-        desc: "仲間川の遊覧船終点よりさらに上流の、澄み切った純淡水域や渓流部分に生息する魚です。昆虫や小魚を捕食し、非常にクリアな美しい水質があることの科学的な証拠（環境インジケーター）となっています。自然豊かな原始の川であることを物語っています。"
+        "id": "minami-kurodai",
+        "name": "ミナミクロダイ",
+        "family": "クロダイ属",
+        "locs": [
+            "upper",
+            "ohtomi"
+        ],
+        "spot": "仲間川上流桟橋・大富漁港",
+        "moe": "",
+        "okinawa": "",
+        "iucn": "絶滅危惧Ⅱ類",
+        "rankCategory": "vu_nt",
+        "icon": "fas fa-fish",
+        "desc": "南西諸島を代表する大型沿岸魚。上流桟橋から大富漁港まで広範囲の環境DNAで検出され、河川と海をつなぐ生態系の重要な一角を担っています。"
     },
     {
-        id: "tametomo-haze",
-        name: "タメトモハゼ",
-        sci: "Ophiocara porocephala",
-        spot: "中上流のマングローブ根元",
-        icon: "fas fa-feather",
-        category: "rare",
-        desc: "環境省レッドリストで「絶滅危惧II類」に指定されている、極めて希少なハゼの仲間です。最大で20〜30cmほどに成長し、美しい斑点模様があります。マングローブの倒伏を抑えた結果、彼らの隠れ家となる複雑な根の隙間がしっかり守られている証拠として検出されています。"
+        "id": "okinawa-kichinu",
+        "name": "オキナワキチヌ",
+        "family": "クロダイ属",
+        "locs": [
+            "upper",
+            "ohtomi"
+        ],
+        "spot": "仲間川上流桟橋・大富漁港",
+        "moe": "",
+        "okinawa": "絶滅危惧ⅠB類",
+        "iucn": "準絶滅危惧",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-fish",
+        "desc": "沖縄特有の希少なクロダイ類。沖縄県レッドリストで絶滅危惧ⅠB類に指定されており、マングローブ干潟や河口域を重要な生育場としています。"
     },
     {
-        id: "kawa-anago",
-        name: "カワアナゴ",
-        sci: "Eleotris fusca",
-        spot: "中下流域 of 泥底",
-        icon: "fas fa-skull-crossbones", /* ハゼや底生を表現 */
-        category: "lower",
-        desc: "川底の泥や石の隙間に潜んで暮らすハゼに近い仲間です。「アナゴ」という名前ですがハゼの親戚です。仲間川の下流や泥底地帯の健全性を示す生き物であり、夜間に泥の中から這い出てきて小魚などを捕食する隠れた生態を持っています。"
+        "id": "nanyou-chinu",
+        "name": "ナンヨウチヌ",
+        "family": "クロダイ属",
+        "locs": [
+            "upper",
+            "ohtomi"
+        ],
+        "spot": "仲間川上流桟橋・大富漁港",
+        "moe": "絶滅危惧Ⅱ類",
+        "okinawa": "準絶滅危惧",
+        "iucn": "",
+        "rankCategory": "vu_nt",
+        "icon": "fas fa-fish",
+        "desc": "環境省レッドリストで絶滅危惧Ⅱ類に指定。汽水域から河口域にかけて生息し、仲間川のマングローブ汽水域の質の高さを示す指標種です。"
     },
     {
-        id: "prawn-group",
-        name: "17種のテナガエビ類",
-        sci: "Macrobrachium group",
-        spot: "中流から最上流（全域）",
-        icon: "fas fa-shrimp",
-        category: "prawn",
-        desc: "環境DNA調査（甲殻類特化プライマー）において、仲間川から驚くべき多様性を示す「17種類」のテナガエビ類のDNAが検出されました。ミナミテナガエビやコンジンテナガエビ、さらには希少なショキタテナガエビ等が含まれ、川の栄養段階と多様性が世界極限クラスである動かぬ証明となっています。"
+        "id": "nihon-unagi",
+        "name": "ニホンウナギ",
+        "family": "ウナギ属",
+        "locs": [
+            "upper"
+        ],
+        "spot": "仲間川上流桟橋",
+        "moe": "",
+        "okinawa": "",
+        "iucn": "絶滅危惧ⅠB類",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-water",
+        "desc": "国際自然保護連合（IUCN）で絶滅危惧ⅠB類に指定。マリアナ海溝から仲間川の上流まで回遊して育つ、河川生態系の保全度を示す象徴的種です。"
+    },
+    {
+        "id": "yaeyama-nokogirihaze",
+        "name": "ヤエヤマノコギリハゼ",
+        "family": "ノコギリハゼ属",
+        "locs": [
+            "upper",
+            "ohtomi"
+        ],
+        "spot": "仲間川上流桟橋・大富漁港",
+        "moe": "絶滅危惧ⅠA類",
+        "okinawa": "絶滅危惧Ⅱ類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-shield-halved",
+        "desc": "環境省最高ランクの絶滅危惧ⅠA類に指定される極めて希少なカワアナゴ科の魚類。マングローブの根元や倒木陰を隠れ家とする貴重な種です。"
+    },
+    {
+        "id": "hoshimadara-haze",
+        "name": "ホシマダラハゼ",
+        "family": "ホシマダラハゼ",
+        "locs": [
+            "upper",
+            "ohtomi"
+        ],
+        "spot": "仲間川上流桟橋・大富漁港",
+        "moe": "絶滅危惧Ⅱ類",
+        "okinawa": "準絶滅危惧",
+        "iucn": "",
+        "rankCategory": "vu_nt",
+        "icon": "fas fa-fish",
+        "desc": "日本最大級のハゼの仲間で、30cm以上に成長。環境省絶滅危惧Ⅱ類。マングローブの泥底や汽水域の障害物に密着して生息しています。"
+    },
+    {
+        "id": "ruri-bouzuhaze",
+        "name": "ルリボウズハゼ",
+        "family": "ルリボウズハゼ",
+        "locs": [
+            "upper"
+        ],
+        "spot": "仲間川上流桟橋",
+        "moe": "絶滅危惧Ⅱ類",
+        "okinawa": "",
+        "iucn": "",
+        "rankCategory": "vu_nt",
+        "icon": "fas fa-water",
+        "desc": "雄が美しい瑠璃色に輝く小型のハゼ。急流や上流域のきれいな渓流環境を好み、仲間川上流部の清流度の高さを示しています。"
+    },
+    {
+        "id": "togenaga-yugoi",
+        "name": "トゲナガユゴイ",
+        "family": "ユゴイ属",
+        "locs": [
+            "upper"
+        ],
+        "spot": "仲間川上流桟橋",
+        "moe": "絶滅危惧ⅠB類",
+        "okinawa": "絶滅危惧ⅠA類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-water",
+        "desc": "沖縄県絶滅危惧ⅠA類、環境省ⅠB類に指定。純淡水域から純汽水域を行き来する魚類で、上流域の原始的景観と自然度の証です。"
+    },
+    {
+        "id": "tametomo-haze",
+        "name": "タメトモハゼ",
+        "family": "タメトモハゼ",
+        "locs": [
+            "upper"
+        ],
+        "spot": "仲間川上流桟橋",
+        "moe": "絶滅危惧ⅠB類",
+        "okinawa": "絶滅危惧Ⅱ類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-shield-halved",
+        "desc": "環境省絶滅危惧ⅠB類。最大30cmに達する大型ハゼで、マングローブの根元が波で削られず複雑に保たれている環境でのみ生き残れます。"
+    },
+    {
+        "id": "agohige-haze",
+        "name": "アゴヒゲハゼ",
+        "family": "ウロハゼ属",
+        "locs": [
+            "upper"
+        ],
+        "spot": "仲間川上流桟橋",
+        "moe": "絶滅危惧ⅠA類",
+        "okinawa": "絶滅危惧ⅠA類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-triangle-exclamation",
+        "desc": "環境省・沖縄県ともに最高ランクの絶滅危惧ⅠA類に指定。下あごに髭状の突起を持つ極めて希少な底生ハゼ類です。"
+    },
+    {
+        "id": "konjiki-haze",
+        "name": "コンジキハゼ",
+        "family": "ウロハゼ属",
+        "locs": [
+            "upper"
+        ],
+        "spot": "仲間川上流桟橋",
+        "moe": "絶滅危惧ⅠA類",
+        "okinawa": "絶滅危惧ⅠA類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-triangle-exclamation",
+        "desc": "環境省・沖縄県最高ランクの絶滅危惧ⅠA類。体に黄金色の光沢を持つ珍しいハゼで、仲間川上流の未攪乱の砂泥底環境に密着しています。"
+    },
+    {
+        "id": "sudare-urohaze",
+        "name": "スダレウロハゼ",
+        "family": "ウロハゼ属",
+        "locs": [
+            "upper"
+        ],
+        "spot": "仲間川上流桟橋",
+        "moe": "準絶滅危惧",
+        "okinawa": "",
+        "iucn": "",
+        "rankCategory": "vu_nt",
+        "icon": "fas fa-fish",
+        "desc": "環境省準絶滅危惧。汽水域の泥底に埋もれた木片やマングローブの根元を巣穴として利用する希少なウロハゼの仲間です。"
+    },
+    {
+        "id": "teppou-uo",
+        "name": "テッポウウオ",
+        "family": "テッポウウオ属",
+        "locs": [
+            "upper",
+            "ohtomi"
+        ],
+        "spot": "仲間川上流桟橋・大富漁港",
+        "moe": "絶滅危惧ⅠA類",
+        "okinawa": "絶滅危惧ⅠA類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-crosshairs",
+        "desc": "水面上の昆虫に口から水鉄砲を発射して撃ち落とす有名な魚。環境省・沖縄県ともに絶滅危惧ⅠA類。仲間川全域の豊かなマングローブ林の象徴です。"
+    },
+    {
+        "id": "shimizu-shimaisaki",
+        "name": "シミズシマイサキ",
+        "family": "シマイサキ科",
+        "locs": [
+            "upper"
+        ],
+        "spot": "仲間川上流桟橋",
+        "moe": "絶滅危惧ⅠA類",
+        "okinawa": "絶滅危惧ⅠA類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-triangle-exclamation",
+        "desc": "環境省・沖縄県絶滅危惧ⅠA類。清烈な湧水や淡水の影響を受ける汽水域にのみ現れる超希少魚類。仲間川の淡水供給の豊富さを証明しています。"
+    },
+    {
+        "id": "nise-shimaisaki",
+        "name": "ニセシマイサキ",
+        "family": "シマイサキ科",
+        "locs": [
+            "upper"
+        ],
+        "spot": "仲間川上流桟橋",
+        "moe": "絶滅危惧ⅠA類",
+        "okinawa": "絶滅危惧ⅠA類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-triangle-exclamation",
+        "desc": "環境省・沖縄県絶滅危惧ⅠA類。黒い縦縞が美しいシマイサキ科の希少種。マングローブの幼魚保護育成場（ナーサリー）の機能を裏付けています。"
+    },
+    {
+        "id": "yokoshima-isaki",
+        "name": "ヨコシマイサキ",
+        "family": "シマイサキ科",
+        "locs": [
+            "upper"
+        ],
+        "spot": "仲間川上流桟橋",
+        "moe": "絶滅危惧ⅠA類",
+        "okinawa": "絶滅危惧ⅠA類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-triangle-exclamation",
+        "desc": "環境省・沖縄県絶滅危惧ⅠA類。横縞模様が特徴的な小型イサキ類。絶滅の危険性が最も高いとされる種の一つです。"
+    },
+    {
+        "id": "eso-haze",
+        "name": "エソハゼ",
+        "family": "エソハゼ",
+        "locs": [
+            "upper"
+        ],
+        "spot": "仲間川上流桟橋",
+        "moe": "絶滅危惧ⅠB類",
+        "okinawa": "絶滅危惧ⅠA類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-shield-halved",
+        "desc": "沖縄県絶滅危惧ⅠA類、環境省ⅠB類。鋭い歯を持ちエソに似た顔つきのハゼ。上流部の清澄な底質に生息しています。"
+    },
+    {
+        "id": "konteri-bouzuhaze",
+        "name": "コンテリボウズハゼ",
+        "family": "ナンヨウボウズハゼ属",
+        "locs": [
+            "upper"
+        ],
+        "spot": "仲間川上流桟橋",
+        "moe": "絶滅危惧ⅠA類",
+        "okinawa": "絶滅危惧ⅠA類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-water",
+        "desc": "環境省・沖縄県絶滅危惧ⅠA類。鮮やかな紺照りの体色を持つ美しい渓流ハゼ。仲間川上流の自然環境が極めて高レベルで保たれている証拠です。"
+    },
+    {
+        "id": "hayase-bouzuhaze",
+        "name": "ハヤセボウズハゼ",
+        "family": "ナンヨウボウズハゼ属",
+        "locs": [
+            "upper"
+        ],
+        "spot": "仲間川上流桟橋",
+        "moe": "絶滅危惧ⅠA類",
+        "okinawa": "絶滅危惧ⅠA類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-water",
+        "desc": "環境省・沖縄県絶滅危惧ⅠA類。早瀬（流れの速い浅瀬）の岩肌にへばりついて生活する、急流性ハゼ類の代表格です。"
+    },
+    {
+        "id": "hisui-bouzuhaze",
+        "name": "ヒスイボウズハゼ",
+        "family": "ナンヨウボウズハゼ属",
+        "locs": [
+            "upper"
+        ],
+        "spot": "仲間川上流桟橋",
+        "moe": "絶滅危惧ⅠA類",
+        "okinawa": "絶滅危惧ⅠA類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-gem",
+        "desc": "環境省・沖縄県絶滅危惧ⅠA類。翡翠（ヒスイ）色の美しい体色を誇る極めて貴重な淡水ハゼで、日本の宝とも言える存在です。"
+    },
+    {
+        "id": "minami-haze",
+        "name": "ミナミハゼ",
+        "family": "ミナミハゼ属",
+        "locs": [
+            "upper"
+        ],
+        "spot": "仲間川上流桟橋",
+        "moe": "",
+        "okinawa": "準絶滅危惧",
+        "iucn": "",
+        "rankCategory": "vu_nt",
+        "icon": "fas fa-fish",
+        "desc": "沖縄県準絶滅危惧。南西諸島の河川中上流域に分布する小魚で、仲間川上流の安定した水生昆虫・付着藻類相を食支えとしています。"
+    },
+    {
+        "id": "nagare-fuuraibora",
+        "name": "ナガレフウライボラ",
+        "family": "フウライボラ属",
+        "locs": [
+            "ohtomi"
+        ],
+        "spot": "大富漁港",
+        "moe": "絶滅危惧ⅠB類",
+        "okinawa": "絶滅危惧ⅠA類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-water",
+        "desc": "沖縄県絶滅危惧ⅠA類、環境省ⅠB類。河口域の大富漁港周辺で検出されたボラ科の希少種。海と河川を行き来する広域生態系を示します。"
+    },
+    {
+        "id": "hohoguro-haze",
+        "name": "ホホグロハゼ",
+        "family": "アベハゼ属",
+        "locs": [
+            "ohtomi"
+        ],
+        "spot": "大富漁港",
+        "moe": "絶滅危惧ⅠB類",
+        "okinawa": "絶滅危惧ⅠB類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-fish",
+        "desc": "環境省・沖縄県ともに絶滅危惧ⅠB類。頬に黒斑を持つ小型ハゼで、干潟の泥穴や小窪みをすみかとしています。"
+    },
+    {
+        "id": "mujina-haze",
+        "name": "ムジナハゼ",
+        "family": "アベハゼ属",
+        "locs": [
+            "ohtomi"
+        ],
+        "spot": "大富漁港",
+        "moe": "絶滅危惧Ⅱ類",
+        "okinawa": "",
+        "iucn": "",
+        "rankCategory": "vu_nt",
+        "icon": "fas fa-fish",
+        "desc": "環境省絶滅危惧Ⅱ類。大富漁港周辺の泥底環境で検出されたアベハゼの仲間。浅瀬の未開発な泥干潟の存在を物語ります。"
+    },
+    {
+        "id": "janome-haze",
+        "name": "ジャノメハゼ",
+        "family": "ジャノメハゼ",
+        "locs": [
+            "ohtomi"
+        ],
+        "spot": "大富漁港",
+        "moe": "絶滅危惧ⅠB類",
+        "okinawa": "準絶滅危惧",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-eye",
+        "desc": "環境省絶滅危惧ⅠB類。尾ビレの付け根に大きな蛇の目（眼状斑）を持つ珍しいハゼ。干潟底生の固有生物群の重要種です。"
+    },
+    {
+        "id": "shima-saruhaze",
+        "name": "シマサルハゼ",
+        "family": "サルハゼ属",
+        "locs": [
+            "ohtomi"
+        ],
+        "spot": "大富漁港",
+        "moe": "絶滅危惧ⅠA類",
+        "okinawa": "絶滅危惧ⅠA類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-triangle-exclamation",
+        "desc": "環境省・沖縄県絶滅危惧ⅠA類。大富漁港の静穏な泥底環境で確認された、日本で最も絶滅が危ぶまれるハゼの一種です。"
+    },
+    {
+        "id": "kirara-haze",
+        "name": "キララハゼ",
+        "family": "キララハゼ属",
+        "locs": [
+            "ohtomi"
+        ],
+        "spot": "大富漁港",
+        "moe": "絶滅危惧Ⅱ類",
+        "okinawa": "絶滅危惧ⅠB類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-star",
+        "desc": "沖縄県絶滅危惧ⅠB類、環境省Ⅱ類。体側にキラリと光る斑点を持つ美しいハゼで、河口のマングローブ泥底に生息します。"
+    },
+    {
+        "id": "nise-tsumugihaze",
+        "name": "ニセツムギハゼ",
+        "family": "キララハゼ属",
+        "locs": [
+            "ohtomi"
+        ],
+        "spot": "大富漁港",
+        "moe": "準絶滅危惧",
+        "okinawa": "準絶滅危惧",
+        "iucn": "",
+        "rankCategory": "vu_nt",
+        "icon": "fas fa-fish",
+        "desc": "環境省・沖縄県準絶滅危惧。ツムギハゼに酷似した希少ハゼ。大富漁港の干潟・汽水域の多様な底生環境を好みます。"
+    },
+    {
+        "id": "hokuro-haze",
+        "name": "ホクロハゼ",
+        "family": "キララハゼ属",
+        "locs": [
+            "ohtomi"
+        ],
+        "spot": "大富漁港",
+        "moe": "準絶滅危惧",
+        "okinawa": "",
+        "iucn": "",
+        "rankCategory": "vu_nt",
+        "icon": "fas fa-fish",
+        "desc": "環境省準絶滅危惧。体にホクロのような黒点が点在するキララハゼ属の珍種。河口部の泥深場を主要な生活圏としています。"
+    },
+    {
+        "id": "hohoguro-sujihaze",
+        "name": "ホホグロスジハゼ",
+        "family": "キララハゼ属",
+        "locs": [
+            "ohtomi"
+        ],
+        "spot": "大富漁港",
+        "moe": "準絶滅危惧",
+        "okinawa": "準絶滅危惧",
+        "iucn": "",
+        "rankCategory": "vu_nt",
+        "icon": "fas fa-fish",
+        "desc": "環境省・沖縄県準絶滅危惧。頬のライン模様が特徴的なハゼ。大富漁港周辺のマングローブ根元の泥地帯で保護されています。"
+    },
+    {
+        "id": "hige-warasubo",
+        "name": "ヒゲワラスボ",
+        "family": "ヒゲワラスボ属",
+        "locs": [
+            "ohtomi"
+        ],
+        "spot": "大富漁港",
+        "moe": "絶滅危惧Ⅱ類",
+        "okinawa": "絶滅危惧Ⅱ類",
+        "iucn": "",
+        "rankCategory": "vu_nt",
+        "icon": "fas fa-worm",
+        "desc": "環境省・沖縄県絶滅危惧Ⅱ類。ウナギのように細長い体にひげを持つ珍魚。大富漁港の深い泥穴の中に潜んで暮らす非常にユニークな生物です。"
+    },
+    {
+        "id": "himo-haze",
+        "name": "ヒモハゼ",
+        "family": "ヒモハゼ",
+        "locs": [
+            "ohtomi"
+        ],
+        "spot": "大富漁港",
+        "moe": "準絶滅危惧",
+        "okinawa": "",
+        "iucn": "",
+        "rankCategory": "vu_nt",
+        "icon": "fas fa-ribbon",
+        "desc": "環境省準絶滅危惧。紐のように非常に極細な体形をしたハゼ。カニの穴などを穴居利用して生息しています。"
+    },
+    {
+        "id": "kobito-haze",
+        "name": "コビトハゼ",
+        "family": "サツキハゼ属",
+        "locs": [
+            "ohtomi"
+        ],
+        "spot": "大富漁港",
+        "moe": "絶滅危惧ⅠB類",
+        "okinawa": "絶滅危惧ⅠB類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-shield-halved",
+        "desc": "環境省・沖縄県絶滅危惧ⅠB類。成魚でも2cm程度の極小ハゼ。大富漁港のマングローブ水路群の繊細な環境を守る必要性を示しています。"
+    },
+    {
+        "id": "komachi-haze",
+        "name": "コマチハゼ",
+        "family": "サツキハゼ属",
+        "locs": [
+            "ohtomi"
+        ],
+        "spot": "大富漁港",
+        "moe": "絶滅危惧ⅠA類",
+        "okinawa": "絶滅危惧ⅠA類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-triangle-exclamation",
+        "desc": "環境省・沖縄県絶滅危惧ⅠA類。透明感ある小柄で美しいハゼ。非常に繊細で、水質濁りや環境変異に極めて敏感な希少種です。"
+    },
+    {
+        "id": "hime-satsukihaze",
+        "name": "ヒメサツキハゼ",
+        "family": "サツキハゼ属",
+        "locs": [
+            "ohtomi"
+        ],
+        "spot": "大富漁港",
+        "moe": "絶滅危惧ⅠA類",
+        "okinawa": "絶滅危惧ⅠA類",
+        "iucn": "",
+        "rankCategory": "cr_en",
+        "icon": "fas fa-triangle-exclamation",
+        "desc": "環境省・沖縄県絶滅危惧ⅠA類。サツキハゼ属の中でも最も希少とされる種の一つで、西表島の大富漁港生態系の貴重さを示す金字塔です。"
+    },
+    {
+        "id": "borneo-haze",
+        "name": "ボルネオハゼ",
+        "family": "サツキハゼ属",
+        "locs": [
+            "ohtomi"
+        ],
+        "spot": "大富漁港",
+        "moe": "絶滅危惧Ⅱ類",
+        "okinawa": "絶滅危惧Ⅱ類",
+        "iucn": "",
+        "rankCategory": "vu_nt",
+        "icon": "fas fa-globe",
+        "desc": "環境省・沖縄県絶滅危惧Ⅱ類。東南アジアから八重山諸島にまたがる国際的黒潮生態系を象徴するサツキハゼの仲間です。"
+    },
+    {
+        "id": "ginpo-haze",
+        "name": "ギンポハゼ",
+        "family": "ギンポハゼ",
+        "locs": [
+            "ohtomi"
+        ],
+        "spot": "大富漁港",
+        "moe": "絶滅危惧Ⅱ類",
+        "okinawa": "絶滅危惧Ⅱ類",
+        "iucn": "準絶滅危惧",
+        "rankCategory": "vu_nt",
+        "icon": "fas fa-fish",
+        "desc": "環境省・沖縄県絶滅危惧Ⅱ類、IUCN準絶滅危惧。ギンポのような長体とハゼの特徴をあわせ持つ、干潟潮だまりのユニークな希少生物です。"
     }
 ];
 
@@ -657,7 +1187,6 @@ function initDnaGallery() {
 
     // 初期読み込み時に最初の生き物を表示
     renderDnaSpecies();
-    showDnaDetail(DNA_SPECIES_DATA[0].id);
 
     // カテゴリタブ切り替え
     dnaTabBtns.forEach(btn => {
@@ -673,24 +1202,36 @@ function initDnaGallery() {
         dnaGrid.innerHTML = '';
         
         const filtered = DNA_SPECIES_DATA.filter(sp => {
-            return activeCategory === 'all' || sp.category === activeCategory;
+            if (activeCategory === 'all') return true;
+            if (activeCategory === 'upper') return sp.locs.includes('upper');
+            if (activeCategory === 'ohtomi') return sp.locs.includes('ohtomi');
+            if (activeCategory === 'cr_en') return sp.rankCategory === 'cr_en';
+            if (activeCategory === 'vu_nt') return sp.rankCategory === 'vu_nt';
+            return true;
         });
+
+        if (filtered.length === 0) {
+            dnaGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 20px; color: rgba(255,255,255,0.5);">該当する生物が見つかりませんでした。</div>';
+            dnaDetail.classList.remove('active');
+            return;
+        }
 
         filtered.forEach(sp => {
             const card = document.createElement('div');
             card.className = 'dna-item-card';
             card.setAttribute('data-id', sp.id);
 
+            const isCr = sp.rankCategory === 'cr_en';
+            const badgeDot = isCr ? '<span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#ef4444; margin-left:4px;" title="絶滅危惧Ⅰ類"></span>' : '';
+
             card.innerHTML = `
                 <div class="dna-item-icon"><i class="${sp.icon}"></i></div>
-                <h4>${sp.name}</h4>
+                <h4>${sp.name} ${badgeDot}</h4>
             `;
 
             card.addEventListener('click', () => {
-                // アクティブクラスの切り替え
                 document.querySelectorAll('.dna-item-card').forEach(c => c.classList.remove('active'));
                 card.classList.add('active');
-                
                 showDnaDetail(sp.id);
             });
 
@@ -711,15 +1252,30 @@ function initDnaGallery() {
         const sp = DNA_SPECIES_DATA.find(s => s.id === id);
         if (!sp) return;
 
-        const sciText = sp.sciExtra ? `${sp.sci} ${sp.sciExtra}` : sp.sci;
+        let badgesHTML = '';
+        if (sp.moe) {
+            const badgeClass = sp.moe.includes('ⅠA') ? 'badge-redlist-cr' : (sp.moe.includes('ⅠB') ? 'badge-redlist-en' : (sp.moe.includes('Ⅱ') ? 'badge-redlist-vu' : 'badge-redlist-nt'));
+            badgesHTML += `<span class="dna-detail-redlist ${badgeClass}"><i class="fas fa-shield"></i> <strong>環境省:</strong> ${sp.moe}</span>`;
+        }
+        if (sp.okinawa) {
+            const badgeClass = sp.okinawa.includes('ⅠA') ? 'badge-redlist-cr' : (sp.okinawa.includes('ⅠB') ? 'badge-redlist-en' : (sp.okinawa.includes('Ⅱ') ? 'badge-redlist-vu' : 'badge-redlist-nt'));
+            badgesHTML += `<span class="dna-detail-redlist ${badgeClass}"><i class="fas fa-location-dot"></i> <strong>沖縄県:</strong> ${sp.okinawa}</span>`;
+        }
+        if (sp.iucn) {
+            const badgeClass = sp.iucn.includes('Ⅰ') ? 'badge-redlist-cr' : (sp.iucn.includes('Ⅱ') ? 'badge-redlist-vu' : 'badge-redlist-nt');
+            badgesHTML += `<span class="dna-detail-redlist ${badgeClass}"><i class="fas fa-globe"></i> <strong>IUCN:</strong> ${sp.iucn}</span>`;
+        }
 
         dnaDetail.innerHTML = `
             <div class="dna-detail-header">
                 <div class="dna-detail-title">
                     <h4>${sp.name}</h4>
-                    <span>${sciText}</span>
+                    <span>分類: ${sp.family}</span>
                 </div>
                 <div class="dna-detail-spot"><i class="fas fa-map-marker-alt"></i> ${sp.spot}</div>
+            </div>
+            <div class="dna-detail-redlist-container">
+                ${badgesHTML}
             </div>
             <div class="dna-detail-body">
                 <p class="dna-detail-desc">${sp.desc}</p>
