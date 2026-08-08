@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. ルール＆マナーのタブ切り替え
     initRuleTabs();
 
-    // 4. 公認14事業者の検索＆フィルター絞り込み
+    // 4. 14締結事業者の検索＆フィルター絞り込み
     initOperatorFilter();
 
     // 5. 安全な環境DNA図鑑の制御（アカメ完全排除）
@@ -308,7 +308,7 @@ function initRuleTabs() {
 
 /* 
 ========================================================================
-4. 公認14事業者の検索＆フィルター絞り込み
+4. 14締結事業者の検索＆フィルター絞り込み
 ========================================================================
 */
 const OPERATORS_DATA = [
@@ -532,7 +532,7 @@ function initOperatorFilter() {
         if (filtered.length === 0) {
             grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--color-text-muted);">
                 <i class="fas fa-search-minus" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>
-                条件に合う事業者は見つかりませんでした。
+                条件に合う締結事業者は見つかりませんでした。
             </div>`;
             return;
         }
@@ -556,7 +556,7 @@ function initOperatorFilter() {
 
             const statusText = op.isSuspended ? 
                 `<span class="operator-status-text" style="color: var(--color-accent-red);"><i class="fas fa-pause-circle"></i> 休止中</span>` : 
-                `<span class="operator-status-text" style="color: var(--color-status-green);"><i class="fas fa-check-circle"></i> 公認営業中</span>`;
+                `<span class="operator-status-text" style="color: var(--color-status-green);"><i class="fas fa-check-circle"></i> 協定締結営業中</span>`;
 
             // メインツアーのHTML生成
             const mainToursHTML = op.mainTours ? `
@@ -569,7 +569,7 @@ function initOperatorFilter() {
             card.innerHTML = `
                 <div>
                     <div class="operator-card-header">
-                        <div class="operator-num">公認番号 ${String(op.id).padStart(2, '0')}</div>
+                        <div class="operator-num">事業者番号 ${String(op.id).padStart(2, '0')}</div>
                         <h4>${op.name}</h4>
                         <div class="operator-rep">代表: ${op.rep}</div>
                     </div>
