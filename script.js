@@ -7,22 +7,19 @@
 // 潮汐データを格納するグローバル変数
 let jmaTideRawData = '';
 
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. レスポンシブナビゲーションとヘッダースクロール
+function initApp() {
     initNavigation();
-
-    // 2. 潮汐データの非同期読み込みとダッシュボード初期化
     loadTideDataAndInit();
-
-    // 3. ルール＆マナーのタブ切り替え
     initRuleTabs();
-
-    // 4. 14締結事業者の検索＆フィルター絞り込み
     initOperatorFilter();
-
-    // 5. 安全な環境DNA図鑑の制御（アカメ完全排除）
     initDnaGallery();
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
 
 // 外部潮汐テキストファイル（tide-data.txt）を読み込んでダッシュボードを初期化する
 async function loadTideDataAndInit() {
