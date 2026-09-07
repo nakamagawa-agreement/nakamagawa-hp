@@ -4,12 +4,8 @@
 ========================================================================
 */
 
-// 潮汐データを格納するグローバル変数
-let jmaTideRawData = '';
-
 function initApp() {
     initNavigation();
-    loadTideDataAndInit();
     initRuleTabs();
     initOperatorFilter();
     initDnaGallery();
@@ -19,41 +15,6 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initApp);
 } else {
     initApp();
-}
-
-// 外部潮汐テキストファイル（tide-data.txt）を読み込んでダッシュボードを初期化する
-async function loadTideDataAndInit() {
-    const tideLevelVal = document.getElementById('tide-level-val');
-    try {
-        const response = await fetch('tide-data.txt');
-        if (!response.ok) {
-            throw new Error('潮汐データファイルの読み込みに失敗しました。');
-        }
-        jmaTideRawData = await response.text();
-        initTideDashboard();
-    } catch (error) {
-        console.error('潮汐データの読み込みエラー:', error);
-        if (tideLevelVal) {
-            tideLevelVal.textContent = 'データ読込中/エラー';
-            tideLevelVal.style.fontSize = '1.1rem';
-            tideLevelVal.style.color = 'var(--color-accent-red)';
-        }
-        
-        // ローカル閲覧時（パソコンのセキュリティ制限）への優しい警告
-        if (window.location.protocol === 'file:') {
-            const noticeText = document.querySelector('.dashboard-notice span');
-            if (noticeText) {
-                noticeText.innerHTML = '<strong>【ローカル閲覧用の案内】</strong> パソコンのセキュリティ制限により、直接ファイルをダブルクリックして開くと潮汐データが読み込めません（画面は動きません）。同梱されている<strong>「ローカルテスト起動.bat」</strong>をダブルクリックして動作確認を行ってください。';
-                noticeText.parentElement.style.backgroundColor = 'rgba(211, 84, 0, 0.08)';
-                noticeText.parentElement.style.borderTop = '1px dashed var(--color-accent-red)';
-                const noticeIcon = document.querySelector('.dashboard-notice i');
-                if (noticeIcon) {
-                    noticeIcon.style.color = 'var(--color-accent-red)';
-                    noticeIcon.className = 'fas fa-exclamation-triangle';
-                }
-            }
-        }
-    }
 }
 
 /* 
@@ -117,167 +78,9 @@ function initNavigation() {
 
 /* 
 ========================================================================
-2. リアルタイム潮汐＆利用状況ダッシュボード
+2. 仲間川のルールとマナー タブ切り替え
 ========================================================================
 */
-function initTideDashboard() {
-    const dashboardDate = document.getElementById('db-date');
-    const tideLevelVal = document.getElementById('tide-level-val');
-    const tideStatusBadge = document.getElementById('tide-status-badge');
-    const boatStatusBadge = document.getElementById('boat-status-badge');
-    const canoeStatusBadge = document.getElementById('canoe-status-badge');
-
-    // 1. 日付の設定
-    const now = new Date();
-    const formattedDate = `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')} 更新`;
-    if (dashboardDate) dashboardDate.textContent = formattedDate;
-
-    const month = now.getMonth() + 1;
-    const day = now.getDate();
-    const currentHour = now.getHours();
-    const currentMin = now.getMinutes();
-
-    // 2. 気象庁の年間予測データから本日分を抽出
-    // 年月日キーの作成 (2026年は '26'、月と日は2桁スペース埋め)
-    const yrStr = '26';
-    const moStr = String(month).padStart(2, ' ');
-    const dyStr = String(day).padStart(2, ' ');
-    const dateKey = yrStr + moStr + dyStr;
-
-    const lines = jmaTideRawData.trim().split('\n');
-    let todayLine = '';
-    for (let line of lines) {
-        if (line.substring(72, 78) === dateKey) {
-            todayLine = line;
-            break;
-        }
-    }
-
-    if (!todayLine) {
-        // 万が一見つからない場合のフォールバック
-        tideLevelVal.textContent = '--cm';
-        return;
-    }
-
-    // 3. 潮位の取得と分単位の線形補間（滑らかな表示）
-    // 毎時潮位は 1〜72カラム（インデックス 0〜71）に3桁ずつ格納されています
-    const getHourTide = (h) => {
-        const start = h * 3;
-        return parseInt(todayLine.substring(start, start + 3).trim(), 10);
-    };
-
-    const tideHourCurrent = getHourTide(currentHour);
-    const tideHourNext = getHourTide((currentHour + 1) % 24);
-    
-    // 現在の分に応じて、1時間の間を直線的をつないで滑らかに補間計算（線形補間）
-    const currentTideHeight = tideHourCurrent + (tideHourNext - tideHourCurrent) * (currentMin / 60);
-
-    // 4. 満潮・干潮データを解析して「大潮・小潮」や「直近のピーク」を特定
-    // 満潮（81〜108カラム / インデックス 80〜107）：7桁（時刻4桁、潮位3桁）×最大4個
-    const parsePeaks = (startIdx) => {
-        const peaks = [];
-        for (let i = 0; i < 4; i++) {
-            const block = todayLine.substring(startIdx + i * 7, startIdx + (i + 1) * 7);
-            const timeStr = block.substring(0, 4).trim();
-            const heightStr = block.substring(4, 7).trim();
-            if (timeStr !== '9999' && timeStr !== '') {
-                const h = parseInt(timeStr.substring(0, timeStr.length - 2), 10);
-                const m = parseInt(timeStr.substring(timeStr.length - 2), 10);
-                const height = parseInt(heightStr, 10);
-                peaks.push({ hour: h, min: m, height: height });
-            }
-        }
-        return peaks;
-    };
-
-    const highTides = parsePeaks(80); // 満潮ピーク群
-    const lowTides = parsePeaks(108); // 干潮ピーク群
-
-    // 日潮差（最大満潮と最小干潮の差）から潮汐種別（大潮・中潮・小潮）を高精度判定！
-    const maxHigh = highTides.length > 0 ? Math.max(...highTides.map(p => p.height)) : 150;
-    const minLow = lowTides.length > 0 ? Math.min(...lowTides.map(p => p.height)) : 50;
-    const tideRange = maxHigh - minLow;
-    
-    let tideType = '中潮';
-    if (tideRange >= 150) tideType = '大潮';
-    else if (tideRange <= 80) tideType = '小潮';
-    else if (tideRange <= 100) tideType = '長潮・若潮';
-
-    // 5. 潮汐ステータス（上げ潮・下げ潮・満潮・干潮）の決定
-    let tideText = '通常水位';
-    let tideStatusClass = 'status-ok';
-
-    // 直近30分以内に満潮・干潮ピークがある場合は「満潮」「干潮」と表示
-    const isNearPeak = (peaks) => {
-        for (let p of peaks) {
-            const diffMin = (p.hour * 60 + p.min) - (currentHour * 60 + currentMin);
-            if (Math.abs(diffMin) <= 30) return true;
-        }
-        return false;
-    };
-
-    if (isNearPeak(highTides)) {
-        tideText = '満潮（潮位十分）';
-        tideStatusClass = 'status-ok';
-    } else if (isNearPeak(lowTides)) {
-        tideText = '干潮（潮位低下）';
-        tideStatusClass = 'status-warning';
-    } else {
-        // 上げ潮か下げ潮かは、次の時間の潮位との高低差で判定
-        tideText = (tideHourNext > tideHourCurrent) ? '上げ潮（満ち込み中）' : '下げ潮（引き潮中）';
-        tideStatusClass = 'status-ok';
-    }
-
-    // 6. 各種ルール判定（水位連動）
-    const isNight = currentHour >= 21 || currentHour <= 5; // 夜間時間外ルール
-
-    let boatText = '';
-    let boatClass = '';
-    let canoeText = '';
-    let canoeClass = '';
-
-    // 夜間・早朝は潮位にかかわらず「進入禁止（時間外）」
-    if (isNight) {
-        tideLevelVal.textContent = `${Math.round(currentTideHeight)}cm (${tideType})`;
-        
-        tideStatusBadge.className = 'db-item-status status-danger';
-        tideStatusBadge.innerHTML = '<span class="status-dot"></span>夜間閉鎖中';
-        
-        boatStatusBadge.className = 'db-item-status status-danger';
-        boatStatusBadge.innerHTML = '<span class="status-dot"></span>夜間自主運休 (航行禁止)';
-        
-        canoeStatusBadge.className = 'db-item-status status-danger';
-        canoeStatusBadge.innerHTML = '<span class="status-dot"></span>夜間・早朝入林禁止';
-    } else {
-        // 日中の運航ルール判定（気象庁の超精密潮位に基づく動的判定）
-        tideLevelVal.textContent = `${Math.round(currentTideHeight)}cm (${tideType})`;
-        
-        tideStatusBadge.className = `db-item-status ${tideStatusClass}`;
-        tideStatusBadge.innerHTML = `<span class="status-dot"></span>${tideText}`;
-
-        // 動力船のルール：潮位が55cmを下回ると「浅瀬発生・折り返し運航」
-        if (currentTideHeight < 55) {
-            boatText = '浅瀬発生・折り返し運航';
-            boatClass = 'status-warning';
-        } else {
-            boatText = '全域航行可能 (徐行厳守)';
-            boatClass = 'status-ok';
-        }
-        boatStatusBadge.className = `db-item-status ${boatClass}`;
-        boatStatusBadge.innerHTML = `<span class="status-dot"></span>${boatText}`;
-
-        // カヌーのルール：潮位が45cmを下回ると「中上流浅瀬注意・団体禁止」
-        if (currentTideHeight < 45) {
-            canoeText = '中上流浅瀬注意・団体禁止';
-            canoeClass = 'status-warning';
-        } else {
-            canoeText = '規制なし (ガイド同伴)';
-            canoeClass = 'status-ok';
-        }
-        canoeStatusBadge.className = `db-item-status ${canoeClass}`;
-        canoeStatusBadge.innerHTML = `<span class="status-dot"></span>${canoeText}`;
-    }
-}
 
 function initRuleTabs() {
     const tabBtns = document.querySelectorAll('.rule-tab-btn');
