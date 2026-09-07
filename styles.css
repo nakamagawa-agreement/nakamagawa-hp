@@ -1394,4 +1394,150 @@ footer {
     
     .logo-text h1 { font-size: 1.1rem; }
     .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+
+    /* 活動実績・学術調査のスマホ最適化 */
+    .activity-section {
+        overflow: hidden;
+    }
+    .activity-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        min-width: 0;
+        width: 100%;
+    }
+    .activity-summary-area {
+        min-width: 0;
+        width: 100%;
+    }
+    .activity-intro h3 {
+        font-size: 1.25rem;
+        line-height: 1.4;
+        margin-bottom: 12px;
+    }
+    .activity-intro p {
+        font-size: 0.88rem;
+        line-height: 1.6;
+        margin-bottom: 16px;
+    }
+    .monitoring-cards {
+        gap: 14px;
+    }
+    .m-card {
+        padding: 16px;
+    }
+    .m-card h4 {
+        font-size: 0.95rem;
+        margin-bottom: 4px;
+    }
+    .m-card p {
+        font-size: 0.82rem;
+        line-height: 1.5;
+    }
+
+    /* 環境DNAデジタル生物図鑑のスマホ最適化（画面はみ出し完全解消） */
+    .dna-gallery-box {
+        padding: 24px 16px;
+        border-radius: var(--border-radius-md);
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    .dna-gallery-box > div {
+        min-width: 0;
+        max-width: 100%;
+    }
+    .dna-header {
+        margin-bottom: 18px;
+        padding-bottom: 14px;
+    }
+    .dna-header h3 {
+        font-size: 1.15rem;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .dna-header p {
+        font-size: 0.8rem;
+        line-height: 1.5;
+    }
+    .dna-tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 18px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 8px;
+        scrollbar-width: none;
+        max-width: 100%;
+        min-width: 0;
+    }
+    .dna-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    .dna-tab-btn {
+        padding: 8px 14px;
+        font-size: 0.78rem;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+    .dna-body-content {
+        min-width: 0;
+        max-width: 100%;
+    }
+    .dna-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 18px;
+        max-height: 280px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-right: 4px;
+    }
+    .dna-grid::-webkit-scrollbar {
+        width: 4px;
+    }
+    .dna-grid::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+    }
+    .dna-item-card {
+        padding: 12px 6px;
+    }
+    .dna-item-icon {
+        font-size: 1.35rem;
+        margin-bottom: 4px;
+    }
+    .dna-item-card h4 {
+        font-size: 0.76rem;
+        word-break: break-all;
+    }
+    .dna-detail-panel {
+        padding: 16px;
+    }
+    .dna-detail-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding-bottom: 10px;
+        margin-bottom: 12px;
+    }
+    .dna-detail-title h4 {
+        font-size: 1.05rem;
+    }
+    .dna-detail-spot {
+        align-self: flex-start;
+        font-size: 0.7rem;
+    }
+    .dna-detail-redlist-container {
+        gap: 6px;
+        margin-bottom: 12px;
+    }
+    .dna-detail-redlist {
+        font-size: 0.72rem;
+        padding: 4px 8px;
+    }
+    .dna-detail-desc {
+        font-size: 0.8rem;
+        line-height: 1.55;
+    }
 }
