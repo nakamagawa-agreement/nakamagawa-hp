@@ -1395,7 +1395,7 @@ footer {
     .logo-text h1 { font-size: 1.1rem; }
     .footer-grid { grid-template-columns: 1fr; gap: 30px; }
 
-    /* 活動実績・学術調査のスマホ最適化 */
+    /* 自然調査・保全活動実績のスマホ最適化 */
     .activity-section {
         overflow: hidden;
     }
