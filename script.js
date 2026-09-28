@@ -212,11 +212,11 @@ const OPERATORS_DATA = [
         id: 9,
         name: "マヤグスクツアー",
         rep: "吉村 鷹亮",
-        desc: "西表島で最も美しいとされる秘境「マヤグスクの滝」への冒険ツアーを専門としています。道のりは少しハードですが、目の前に広がる雄大な滝の景色は感動間違いなし。特別な一日を全力でサポートします！",
+        desc: "カヤックやトレッキング、シュノーケル等、西表島の海も山も川も楽しめるツアーを催行しています！『マヤグスクの滝』等のハードツアーからのんびり『マングローブカヌー』まで幅広いツアーを展開中！",
         types: ["canoe", "trekking"],
         hasPowerboat: false,
         hasCanoe: true,
-        url: "https://www.mayagusukutour.net/",
+        url: "https://iriomotejima-tours.com/",
         isSuspended: false,
         mainTours: "マヤグスクの滝カヤック＆トレッキングツアー、西表島最高峰古見岳トレッキングツアー、西表島横断トレッキング、仲間川カヌーツアー（半日）"
     },
