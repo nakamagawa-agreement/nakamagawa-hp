@@ -571,6 +571,48 @@ header.scrolled .menu-toggle span {
     color: var(--color-text-dark);
 }
 
+.rules-pdf-container {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px dashed rgba(10, 58, 32, 0.12);
+}
+
+.rules-pdf-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--color-primary-cyan);
+    padding: 8px 16px;
+    background-color: rgba(0, 125, 138, 0.08);
+    border-radius: var(--border-radius-sm);
+    border: 1px solid rgba(0, 125, 138, 0.2);
+    transition: var(--transition-micro);
+}
+
+.rules-pdf-link:hover {
+    background-color: var(--color-primary-cyan);
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 125, 138, 0.2);
+}
+
+.rules-pdf-link i.fa-file-pdf {
+    font-size: 1.1rem;
+    color: #E74C3C;
+    transition: var(--transition-micro);
+}
+
+.rules-pdf-link:hover i.fa-file-pdf {
+    color: #FFFFFF;
+}
+
+.rules-pdf-link i.fa-arrow-up-right-from-square {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
 .rules-tabs {
     display: flex;
     justify-content: center;
