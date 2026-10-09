@@ -168,7 +168,7 @@ const OPERATORS_DATA = [
         types: ["canoe", "trekking"],
         hasPowerboat: false,
         hasCanoe: true,
-        url: "https://www.iriotekarakara.com/",
+        url: "https://www.iriomotekarakara.com/",
         isSuspended: false,
         mainTours: "ピナイサーラの滝カヤック＆トレッキング、ナーラの滝カヤック＆トレッキング、遊覧船で行くマヤグスクトレッキング、シーカヤックで行く船浮・イダの浜、ユツンの滝・ゲータの滝トレッキング"
     },
