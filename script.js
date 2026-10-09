@@ -868,12 +868,25 @@ function initDnaGallery() {
 5. microCMS 連携（活動実績の動的読み込み）
 ========================================================================
 */
+const DEFAULT_ACTIVITIES = [
+    {
+        date: "2026.09.25 ｜ 大富公民館",
+        title: "大富漁船組合との意見交換会の実施",
+        content: "大富船着場を利用する地域住民と、日頃のフィールド利用についての意見交換会。前回開催は2024年9月。船着場東屋周辺の駐車問題や船舶とカヌーの安全等について意見を交わしました。"
+    },
+    {
+        date: "DAILY & ANNUAL ACTION",
+        title: "ツアー中の漂着ゴミ回収 ＆ 記録管理",
+        content: "締結事業者はツアー中に発見した漂着ゴミの回収を随時行っています。回収したゴミは協定が管理する集積所へ集められ、年に1回データの記録を行って適切に処理・処分しています。"
+    }
+];
+
 async function initMicroCmsActivities() {
     const container = document.querySelector('.monitoring-cards');
     if (!container) return;
 
     try {
-        const response = await fetch('https://nakamagawa.microcms.io/api/v1/activities', {
+        const response = await fetch('https://nakamagawa.microcms.io/api/v1/activities?limit=50', {
             headers: {
                 'X-MICROCMS-API-KEY': 'cqcilsSgsKGJizCKy0KgHpgDZu9SxEs7ObAH'
             }
@@ -885,23 +898,76 @@ async function initMicroCmsActivities() {
         }
 
         const data = await response.json();
-        if (data && Array.isArray(data.contents) && data.contents.length > 0) {
-            container.innerHTML = data.contents.map(item => {
-                const dateText = escapeHtml(item.date || '');
-                const titleText = escapeHtml(item.title || '');
-                const contentText = escapeHtml(item.content || '').replace(/\n/g, '<br>');
-                return `
-                    <div class="m-card">
-                        <div class="m-card-date">${dateText}</div>
-                        <h4>${titleText}</h4>
-                        <p>${contentText}</p>
-                    </div>
-                `;
-            }).join('');
+        let allItems = [];
+        if (data && Array.isArray(data.contents)) {
+            allItems = data.contents.map(item => ({
+                date: item.date || '',
+                title: item.title || '',
+                content: item.content || ''
+            }));
+        }
+
+        // microCMSに既存2件が未登録の場合は、既存2件も自動補完（重複防止）
+        DEFAULT_ACTIVITIES.forEach(defItem => {
+            const exists = allItems.some(i => i.title.trim() === defItem.title.trim());
+            if (!exists) {
+                allItems.push(defItem);
+            }
+        });
+
+        if (allItems.length === 0) return;
+
+        // 最大3件までを初期表示
+        const initialCards = allItems.slice(0, 3);
+        const hiddenCards = allItems.slice(3);
+
+        let html = initialCards.map(item => renderActivityCard(item)).join('');
+
+        // 4件以上ある場合は「過去の実績を見る」アコーディオンを追加
+        if (hiddenCards.length > 0) {
+            html += `
+                <div class="monitoring-more-container" id="monitoring-more-cards">
+                    ${hiddenCards.map(item => renderActivityCard(item)).join('')}
+                </div>
+                <button type="button" class="monitoring-toggle-btn" id="monitoring-toggle-btn">
+                    <i class="fas fa-chevron-down"></i> 過去の実績を見る（他${hiddenCards.length}件）
+                </button>
+            `;
+        }
+
+        container.innerHTML = html;
+
+        // ボタンの開閉イベント登録
+        if (hiddenCards.length > 0) {
+            const toggleBtn = document.getElementById('monitoring-toggle-btn');
+            const moreCardsBox = document.getElementById('monitoring-more-cards');
+            if (toggleBtn && moreCardsBox) {
+                toggleBtn.addEventListener('click', () => {
+                    const isOpen = moreCardsBox.classList.toggle('open');
+                    if (isOpen) {
+                        toggleBtn.innerHTML = '<i class="fas fa-chevron-up"></i> 閉じる';
+                    } else {
+                        toggleBtn.innerHTML = `<i class="fas fa-chevron-down"></i> 過去の実績を見る（他${hiddenCards.length}件）`;
+                    }
+                });
+            }
         }
     } catch (err) {
         console.warn('microCMS読み込みエラー（安全フォールバック発動）:', err);
     }
+}
+
+function renderActivityCard(item) {
+    const dateText = escapeHtml(item.date || '');
+    const titleText = escapeHtml(item.title || '');
+    const contentText = escapeHtml(item.content || '').replace(/\n/g, '<br>');
+    return `
+        <div class="m-card">
+            <div class="m-card-date">${dateText}</div>
+            <h4>${titleText}</h4>
+            <p>${contentText}</p>
+        </div>
+    `;
 }
 
 function escapeHtml(str) {
