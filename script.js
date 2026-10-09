@@ -9,6 +9,7 @@ function initApp() {
     initRuleTabs();
     initOperatorFilter();
     initDnaGallery();
+    initMicroCmsActivities();
 }
 
 if (document.readyState === 'loading') {
@@ -860,4 +861,55 @@ function initDnaGallery() {
         `;
         dnaDetail.classList.add('active');
     }
+}
+
+/* 
+========================================================================
+5. microCMS 連携（活動実績の動的読み込み）
+========================================================================
+*/
+async function initMicroCmsActivities() {
+    const container = document.querySelector('.monitoring-cards');
+    if (!container) return;
+
+    try {
+        const response = await fetch('https://nakamagawa.microcms.io/api/v1/activities', {
+            headers: {
+                'X-MICROCMS-API-KEY': 'cqcilsSgsKGJizCKy0KgHpgDZu9SxEs7ObAH'
+            }
+        });
+
+        if (!response.ok) {
+            console.warn('microCMS取得ステータス異常:', response.status);
+            return;
+        }
+
+        const data = await response.json();
+        if (data && Array.isArray(data.contents) && data.contents.length > 0) {
+            container.innerHTML = data.contents.map(item => {
+                const dateText = escapeHtml(item.date || '');
+                const titleText = escapeHtml(item.title || '');
+                const contentText = escapeHtml(item.content || '').replace(/\n/g, '<br>');
+                return `
+                    <div class="m-card">
+                        <div class="m-card-date">${dateText}</div>
+                        <h4>${titleText}</h4>
+                        <p>${contentText}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+    } catch (err) {
+        console.warn('microCMS読み込みエラー（安全フォールバック発動）:', err);
+    }
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
 }
