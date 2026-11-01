@@ -9,6 +9,8 @@ function initApp() {
     initRuleTabs();
     initOperatorFilter();
     initDnaGallery();
+    initMicroCmsOperators();
+    initMicroCmsDna();
     initMicroCmsActivities();
 }
 
@@ -294,6 +296,7 @@ function initOperatorFilter() {
     let searchQuery = '';
 
     // カード初期表示
+    window.refreshOperatorsUI = renderOperators;
     renderOperators();
 
     // フィルターボタンクリックイベント
@@ -760,6 +763,7 @@ function initDnaGallery() {
     let activeCategory = 'all';
 
     // 初期読み込み時に最初の生き物を表示
+    window.refreshDnaUI = renderDnaSpecies;
     renderDnaSpecies();
 
     // カテゴリタブ切り替え
@@ -881,6 +885,119 @@ const DEFAULT_ACTIVITIES = [
     }
 ];
 
+const MICROCMS_API_KEY = 'cqcilsSgsKGJizCKy0KgHpgDZu9SxEs7ObAH';
+const MICROCMS_BASE_URL = 'https://nakamagawa.microcms.io/api/v1';
+
+async function initMicroCmsOperators() {
+    try {
+        const response = await fetch(`${MICROCMS_BASE_URL}/operators?limit=100`, {
+            headers: { 'X-MICROCMS-API-KEY': MICROCMS_API_KEY }
+        });
+        if (!response.ok) return;
+        const data = await response.json();
+        if (!data || !Array.isArray(data.contents) || data.contents.length === 0) return;
+
+        const typeMap = {
+            '動力船': 'powerboat',
+            'カヌー': 'canoe',
+            'SUP': 'sup',
+            '登山・散策': 'trekking'
+        };
+
+        const loaded = data.contents.map((item, idx) => {
+            const rawTypes = Array.isArray(item.types) ? item.types : [];
+            const mappedTypes = rawTypes.map(t => typeMap[t] || t).filter(Boolean);
+            return {
+                id: typeof item.number === 'number' ? item.number : (idx + 1),
+                name: item.name || '',
+                rep: item.rep || '',
+                desc: item.desc || '',
+                types: mappedTypes.length > 0 ? mappedTypes : ['canoe'],
+                hasPowerboat: mappedTypes.includes('powerboat'),
+                hasCanoe: mappedTypes.includes('canoe'),
+                url: item.url || '#',
+                isSuspended: Boolean(item.isSuspended),
+                mainTours: item.mainTours || ''
+            };
+        });
+
+        loaded.sort((a, b) => a.id - b.id);
+        OPERATORS_DATA.splice(0, OPERATORS_DATA.length, ...loaded);
+        if (typeof window.refreshOperatorsUI === 'function') {
+            window.refreshOperatorsUI();
+        }
+    } catch (err) {
+        console.warn('microCMS operators読み込みエラー（安全フォールバック発動）:', err);
+    }
+}
+
+async function initMicroCmsDna() {
+    try {
+        const response = await fetch(`${MICROCMS_BASE_URL}/dna?limit=100`, {
+            headers: { 'X-MICROCMS-API-KEY': MICROCMS_API_KEY }
+        });
+        if (!response.ok) return;
+        const data = await response.json();
+        if (!data || !Array.isArray(data.contents) || data.contents.length === 0) return;
+
+        const loaded = data.contents.map((item, idx) => {
+            const rawLocs = Array.isArray(item.locs) ? item.locs : [];
+            const locs = [];
+            const spotParts = [];
+            if (rawLocs.some(l => l.includes('上流') || l === 'upper')) {
+                locs.push('upper');
+                spotParts.push('仲間川上流桟橋');
+            }
+            if (rawLocs.some(l => l.includes('大富') || l === 'ohtomi')) {
+                locs.push('ohtomi');
+                spotParts.push('大富漁港');
+            }
+            const spot = spotParts.join('・') || '仲間川流域';
+
+            const firstVal = v => (Array.isArray(v) ? (v[0] || '') : (v || ''));
+            const moeRaw = firstVal(item.moe);
+            const moe = moeRaw === '絶滅危惧種を含む仲間' ? '' : moeRaw;
+            const okinawa = firstVal(item.okinawa);
+            const iucn = firstVal(item.iucn);
+
+            const isCrEn = [moeRaw, okinawa, iucn].some(r => r.includes('Ⅰ') || r.includes('絶滅危惧種を含む仲間'));
+            const rankCategory = isCrEn ? 'cr_en' : 'vu_nt';
+
+            const name = item.name || '';
+            let icon = 'fas fa-fish';
+            if (name.includes('テッポウウオ')) icon = 'fas fa-bullseye';
+            else if ([moe, okinawa].some(r => r.includes('ⅠA'))) icon = 'fas fa-shield-halved';
+            else if (name.includes('ウナギ') || name.includes('ユゴイ')) icon = 'fas fa-water';
+            else if (name.includes('ボウズハゼ')) icon = 'fas fa-droplet';
+
+            return {
+                id: item.id || `dna-${idx + 1}`,
+                name: name,
+                family: item.family || '',
+                locs: locs.length > 0 ? locs : ['upper'],
+                spot: spot,
+                moe: moe,
+                okinawa: okinawa,
+                iucn: iucn,
+                rankCategory: rankCategory,
+                icon: icon,
+                desc: item.desc || ''
+            };
+        });
+
+        DNA_SPECIES_DATA.splice(0, DNA_SPECIES_DATA.length, ...loaded);
+        const allTabBtn = document.querySelector('.dna-tab-btn[data-cat="all"]');
+        if (allTabBtn) {
+            allTabBtn.textContent = `全掲載（${DNA_SPECIES_DATA.length}種・グループ）`;
+        }
+        if (typeof window.refreshDnaUI === 'function') {
+            window.refreshDnaUI();
+        }
+    } catch (err) {
+        console.warn('microCMS dna読み込みエラー（安全フォールバック発動）:', err);
+    }
+}
+
 async function initMicroCmsActivities() {
     const container = document.querySelector('.monitoring-cards');
     if (!container) return;
@@ -900,11 +1017,20 @@ async function initMicroCmsActivities() {
         const data = await response.json();
         let allItems = [];
         if (data && Array.isArray(data.contents)) {
-            allItems = data.contents.map(item => ({
-                date: item.date || '',
-                title: item.title || '',
-                content: item.content || ''
-            }));
+            const pdfSetting = data.contents.find(item => (item.title || '').trim() === '【設定】ルール原文PDF');
+            if (pdfSetting && pdfSetting.content) {
+                const pdfLink = document.querySelector('.rules-pdf-link');
+                if (pdfLink) {
+                    pdfLink.href = pdfSetting.content.trim();
+                }
+            }
+            allItems = data.contents
+                .filter(item => (item.title || '').trim() !== '【設定】ルール原文PDF')
+                .map(item => ({
+                    date: item.date || '',
+                    title: item.title || '',
+                    content: item.content || ''
+                }));
         }
 
         // microCMSに既存2件が未登録の場合は、既存2件も自動補完（重複防止）
